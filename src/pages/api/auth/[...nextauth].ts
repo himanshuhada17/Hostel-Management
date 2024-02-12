@@ -18,21 +18,18 @@ export const authOptions = {
         },
       },
       async authorize(credentials, req) {
-        const user = {
-          id: '1',
-          email: "himanshuhada17@gmail.com",
-          password: "1234",
-        }
-        if (user) {
-          return user;
-        } else {
-          return null;
-        }
+        if (
+          credentials?.username === "himanshuhada17@gmail.com" &&
+          credentials.password === "1234"
+        ) {
+          return { id: "1", email: "himanshuhada17@gmail.com" };
+        } 
+        else return null;
       },
     }),
     GithubProvider({
-      clientId: 'eb4c92fee244d162b222',
-      clientSecret: '01e1359d001b8e6464162f7cea9c7e282d4f043a',
+      clientId: "eb4c92fee244d162b222",
+      clientSecret: "01e1359d001b8e6464162f7cea9c7e282d4f043a",
     }),
   ],
 };
