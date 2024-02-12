@@ -31,8 +31,8 @@ export const authOptions = {
       },
     }),
     GithubProvider({
-      clientId: "eb4c92fee244d162b222",
-      clientSecret: "5db2407755e45888223c92e68d20d2ec1f290d54",
+      clientId: 'eb4c92fee244d162b222',
+      clientSecret: '01e1359d001b8e6464162f7cea9c7e282d4f043a',
     }),
   ],
 };
