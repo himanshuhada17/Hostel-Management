@@ -1,6 +1,7 @@
 import express from "express";
 import { ApolloServer } from "@apollo/server";
 import { expressMiddleware } from "@apollo/server/express4";
+import {db_connection} from "./database"
 
 async function init() {
   const app = express();
@@ -35,3 +36,4 @@ async function init() {
   });
 }
 init();
+db_connection()

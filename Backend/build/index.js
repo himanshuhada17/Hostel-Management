@@ -15,6 +15,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = __importDefault(require("express"));
 const server_1 = require("@apollo/server");
 const express4_1 = require("@apollo/server/express4");
+const database_1 = require("./database");
 function init() {
     return __awaiter(this, void 0, void 0, function* () {
         const app = (0, express_1.default)();
@@ -45,3 +46,4 @@ function init() {
     });
 }
 init();
+(0, database_1.db_connection)();
