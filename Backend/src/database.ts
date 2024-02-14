@@ -8,7 +8,7 @@ export function db_connection() {
     database: "hostel_db",
   });
 
-  pool.query("select * from test", (err, result) => {
+  pool.query(`select * from test`, (err, result) => {
     if (err) {
       return console.log(err);
     }

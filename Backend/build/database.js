@@ -9,7 +9,7 @@ function db_connection() {
         password: "21112111",
         database: "hostel_db",
     });
-    pool.query("select * from test", (err, result) => {
+    pool.query(`select * from test`, (err, result) => {
         if (err) {
             return console.log(err);
         }
