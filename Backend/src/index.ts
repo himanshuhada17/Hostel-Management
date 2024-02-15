@@ -5,9 +5,11 @@ import { db_connection } from "./database";
 import { buildSchema } from "type-graphql";
 import { UserResolver } from "./resolver/UserResolver";
 import "reflect-metadata";
+import cors from 'cors'
 
 async function server_setup() {
   const app = express();
+  app.use(cors())
   const PORT = 4000;
   app.use(express.json());
 

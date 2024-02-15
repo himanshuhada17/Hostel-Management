@@ -19,9 +19,11 @@ const database_1 = require("./database");
 const type_graphql_1 = require("type-graphql");
 const UserResolver_1 = require("./resolver/UserResolver");
 require("reflect-metadata");
+const cors_1 = __importDefault(require("cors"));
 function server_setup() {
     return __awaiter(this, void 0, void 0, function* () {
         const app = (0, express_1.default)();
+        app.use((0, cors_1.default)());
         const PORT = 4000;
         app.use(express_1.default.json());
         // create a  graphql server
