@@ -18,12 +18,12 @@ async function server_setup() {
     }),
   });
 
-  // start the gql server
+  // start the apollo server
   await apolloServer.start();
 
-  app.get("/", (req, res) => {
-    res.json({ message: "server is up and running" });
-  });
+  // app.get("/", (req, res) => {
+  //   res.json({ message: "server is up and running" });
+  // });
 
   app.use("/graphql", expressMiddleware(apolloServer));
 

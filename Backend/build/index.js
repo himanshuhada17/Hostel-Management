@@ -30,11 +30,11 @@ function server_setup() {
                 resolvers: [UserResolver_1.UserResolver],
             }),
         });
-        // start the gql server
+        // start the apollo server
         yield apolloServer.start();
-        app.get("/", (req, res) => {
-            res.json({ message: "server is up and running" });
-        });
+        // app.get("/", (req, res) => {
+        //   res.json({ message: "server is up and running" });
+        // });
         app.use("/graphql", (0, express4_1.expressMiddleware)(apolloServer));
         app.listen(PORT, () => {
             console.log(`Server is running at http://localhost:${PORT}`);
