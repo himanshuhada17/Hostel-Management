@@ -1,19 +1,34 @@
-import { Column, Entity, PrimaryGeneratedColumn } from "typeorm"
+import { Field, ID, ObjectType } from "type-graphql";
+import { BaseEntity, Column, Entity, PrimaryGeneratedColumn } from "typeorm"
 
-@Entity()
-export class User {
-    @PrimaryGeneratedColumn()
-    id: number;
+@ObjectType()
+@Entity({name: 'user'})
+export class User extends BaseEntity{
+    @Field(() => ID)  
+    @PrimaryGeneratedColumn('uuid')
+    id: string;
 
-    @Column()
+    @Field(() => String)
+    @Column({
+        type: 'varchar',
+    })
     firstName: string;
 
+    @Field(() => String)
     @Column()
     lastName: string;
 
-    @Column()
-    email: string;
+    @Field(() => String,{nullable: true})
+    @Column({
+        type: 'varchar',
+        nullable: true,
+        unique: true
+    })
+    email?: string;
 
-    @Column()
+    @Field(() => String)
+    @Column({
+        type: 'varchar',
+    })
     password: string;
 }

@@ -16,34 +16,30 @@ const express_1 = __importDefault(require("express"));
 const server_1 = require("@apollo/server");
 const express4_1 = require("@apollo/server/express4");
 const database_1 = require("./database");
-function init() {
+const type_graphql_1 = require("type-graphql");
+const UserResolver_1 = require("./resolver/UserResolver");
+require("reflect-metadata");
+function server_setup() {
     return __awaiter(this, void 0, void 0, function* () {
         const app = (0, express_1.default)();
         const PORT = 4000;
         app.use(express_1.default.json());
         // create a  graphql server
-        const gqlServer = new server_1.ApolloServer({
-            typeDefs: `
-    type Query {
-        hello: String
-    }
-        `,
-            resolvers: {
-                Query: {
-                    hello: () => "Hello World"
-                }
-            },
+        const apolloServer = new server_1.ApolloServer({
+            schema: yield (0, type_graphql_1.buildSchema)({
+                resolvers: [UserResolver_1.UserResolver],
+            }),
         });
         // start the gql server
-        yield gqlServer.start();
+        yield apolloServer.start();
         app.get("/", (req, res) => {
             res.json({ message: "server is up and running" });
         });
-        app.use("/graphql", (0, express4_1.expressMiddleware)(gqlServer));
+        app.use("/graphql", (0, express4_1.expressMiddleware)(apolloServer));
         app.listen(PORT, () => {
             console.log(`Server is running at http://localhost:${PORT}`);
         });
     });
 }
-init();
+server_setup();
 (0, database_1.db_connection)();

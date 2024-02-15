@@ -29,7 +29,7 @@ function db_connection() {
         password: "21112111",
         database: "hostel_db",
         entities: entity_modal_1.entities,
-        logging: true,
+        logging: false,
         synchronize: true,
     });
 }

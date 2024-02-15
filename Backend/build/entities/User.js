@@ -10,30 +10,45 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.User = void 0;
+const type_graphql_1 = require("type-graphql");
 const typeorm_1 = require("typeorm");
-let User = class User {
+let User = class User extends typeorm_1.BaseEntity {
 };
 exports.User = User;
 __decorate([
-    (0, typeorm_1.PrimaryGeneratedColumn)(),
-    __metadata("design:type", Number)
+    (0, type_graphql_1.Field)(() => type_graphql_1.ID),
+    (0, typeorm_1.PrimaryGeneratedColumn)('uuid'),
+    __metadata("design:type", String)
 ], User.prototype, "id", void 0);
 __decorate([
-    (0, typeorm_1.Column)(),
+    (0, type_graphql_1.Field)(() => String),
+    (0, typeorm_1.Column)({
+        type: 'varchar',
+    }),
     __metadata("design:type", String)
 ], User.prototype, "firstName", void 0);
 __decorate([
+    (0, type_graphql_1.Field)(() => String),
     (0, typeorm_1.Column)(),
     __metadata("design:type", String)
 ], User.prototype, "lastName", void 0);
 __decorate([
-    (0, typeorm_1.Column)(),
+    (0, type_graphql_1.Field)(() => String, { nullable: true }),
+    (0, typeorm_1.Column)({
+        type: 'varchar',
+        nullable: true,
+        unique: true
+    }),
     __metadata("design:type", String)
 ], User.prototype, "email", void 0);
 __decorate([
-    (0, typeorm_1.Column)(),
+    (0, type_graphql_1.Field)(() => String),
+    (0, typeorm_1.Column)({
+        type: 'varchar',
+    }),
     __metadata("design:type", String)
 ], User.prototype, "password", void 0);
 exports.User = User = __decorate([
-    (0, typeorm_1.Entity)()
+    (0, type_graphql_1.ObjectType)(),
+    (0, typeorm_1.Entity)({ name: 'user' })
 ], User);

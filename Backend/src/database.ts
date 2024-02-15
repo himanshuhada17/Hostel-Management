@@ -30,7 +30,7 @@ export function db_connection() {
     password: "21112111",
     database: "hostel_db",
     entities: entities,
-    logging: true,
+    logging: false,
     synchronize: true,
   });
 }
