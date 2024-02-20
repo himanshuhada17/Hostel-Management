@@ -29,7 +29,9 @@ __decorate([
 ], User.prototype, "firstName", void 0);
 __decorate([
     (0, type_graphql_1.Field)(() => String),
-    (0, typeorm_1.Column)(),
+    (0, typeorm_1.Column)({
+        type: 'varchar',
+    }),
     __metadata("design:type", String)
 ], User.prototype, "lastName", void 0);
 __decorate([

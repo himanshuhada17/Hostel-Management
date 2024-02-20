@@ -1,9 +1,0 @@
-query GetAllUsers {
-  getAllUsers {
-    email
-    firstName
-    id
-    lastName
-    password
-  }
-}

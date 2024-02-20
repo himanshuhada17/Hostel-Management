@@ -9,8 +9,8 @@ class UserInput {
   @Field(() => String)
   lastName: string;
 
-  @Field(() => String, { nullable: true })
-  email?: string;
+  @Field(() => String)
+  email: string;
 
   @Field(() => String)
   password: string;

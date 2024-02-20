@@ -15,16 +15,17 @@ export class User extends BaseEntity{
     firstName: string;
 
     @Field(() => String)
-    @Column()
+    @Column({ 
+        type: 'varchar',
+    })
     lastName: string;
 
-    @Field(() => String,{nullable: true})
+    @Field(() => String)
     @Column({
         type: 'varchar',
-        nullable: true,
         unique: true
     })
-    email?: string;
+    email: string;
 
     @Field(() => String)
     @Column({
