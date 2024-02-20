@@ -1,8 +1,9 @@
 import { Field, ID, ObjectType } from "type-graphql";
-import { BaseEntity, Column, PrimaryGeneratedColumn } from "typeorm";
+import { BaseEntity, Column, Entity, OneToMany, PrimaryGeneratedColumn } from "typeorm";
 
 
 @ObjectType()
+@Entity()
 export class Room extends BaseEntity {
 
     @Field(() => ID)

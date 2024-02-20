@@ -35,10 +35,9 @@ __decorate([
     __metadata("design:type", String)
 ], User.prototype, "lastName", void 0);
 __decorate([
-    (0, type_graphql_1.Field)(() => String, { nullable: true }),
+    (0, type_graphql_1.Field)(() => String),
     (0, typeorm_1.Column)({
         type: 'varchar',
-        nullable: true,
         unique: true
     }),
     __metadata("design:type", String)

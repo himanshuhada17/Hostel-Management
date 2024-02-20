@@ -1,6 +1,5 @@
 import { Field, ID, ObjectType } from "type-graphql";
-import { BaseEntity, Column, CreateDateColumn, Entity, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
-
+import { BaseEntity, Column, CreateDateColumn, Entity, ManyToOne, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
 
 @ObjectType()
 @Entity()
@@ -24,11 +23,11 @@ export class Rent extends BaseEntity {
     amount: string
 
     @Field()
-    @CreateDateColumn({type: 'time with time zone'})
+    @CreateDateColumn({type: 'timestamp'})
     createdAt: Date
 
     @Field()
-    @UpdateDateColumn({type: 'time with time zone'})
+    @UpdateDateColumn({type: 'timestamp'})
     updatedAt: Date
 
 }

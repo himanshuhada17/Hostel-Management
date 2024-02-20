@@ -12,6 +12,8 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.Rent = void 0;
 const type_graphql_1 = require("type-graphql");
 const typeorm_1 = require("typeorm");
+const Person_1 = require("./Person");
+const Bed_1 = require("./Bed");
 let Rent = class Rent extends typeorm_1.BaseEntity {
 };
 exports.Rent = Rent;
@@ -39,14 +41,22 @@ __decorate([
 ], Rent.prototype, "amount", void 0);
 __decorate([
     (0, type_graphql_1.Field)(),
-    (0, typeorm_1.CreateDateColumn)({ type: 'time with time zone' }),
+    (0, typeorm_1.CreateDateColumn)({ type: 'timestamp' }),
     __metadata("design:type", Date)
 ], Rent.prototype, "createdAt", void 0);
 __decorate([
     (0, type_graphql_1.Field)(),
-    (0, typeorm_1.UpdateDateColumn)({ type: 'time with time zone' }),
+    (0, typeorm_1.UpdateDateColumn)({ type: 'timestamp' }),
     __metadata("design:type", Date)
 ], Rent.prototype, "updatedAt", void 0);
+__decorate([
+    (0, typeorm_1.ManyToOne)(() => Person_1.Person, (person) => person.rents),
+    __metadata("design:type", Person_1.Person)
+], Rent.prototype, "person", void 0);
+__decorate([
+    (0, typeorm_1.ManyToOne)(() => Bed_1.Bed, (bed) => bed.rents),
+    __metadata("design:type", Bed_1.Bed)
+], Rent.prototype, "bed", void 0);
 exports.Rent = Rent = __decorate([
     (0, type_graphql_1.ObjectType)(),
     (0, typeorm_1.Entity)()

@@ -35,7 +35,7 @@ __decorate([
     __metadata("design:type", String)
 ], UserInput.prototype, "lastName", void 0);
 __decorate([
-    (0, type_graphql_1.Field)(() => String, { nullable: true }),
+    (0, type_graphql_1.Field)(() => String),
     __metadata("design:type", String)
 ], UserInput.prototype, "email", void 0);
 __decorate([
