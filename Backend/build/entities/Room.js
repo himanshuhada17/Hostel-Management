@@ -12,7 +12,6 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.Room = void 0;
 const type_graphql_1 = require("type-graphql");
 const typeorm_1 = require("typeorm");
-const Bed_1 = require("./Bed");
 let Room = class Room extends typeorm_1.BaseEntity {
 };
 exports.Room = Room;
@@ -41,10 +40,6 @@ __decorate([
     (0, typeorm_1.Column)({ default: 'Available' }),
     __metadata("design:type", String)
 ], Room.prototype, "roomStatus", void 0);
-__decorate([
-    (0, typeorm_1.OneToMany)(() => Bed_1.Bed, (bed) => bed.room),
-    __metadata("design:type", Array)
-], Room.prototype, "beds", void 0);
 exports.Room = Room = __decorate([
     (0, type_graphql_1.ObjectType)(),
     (0, typeorm_1.Entity)()

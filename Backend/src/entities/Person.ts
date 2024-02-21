@@ -1,5 +1,7 @@
 import { Field, ID, ObjectType } from "type-graphql";
 import { BaseEntity, Column, Entity, ManyToOne, OneToMany, PrimaryGeneratedColumn } from "typeorm";
+import { Rent } from "./Rent";
+// import { TypeormLoader } from "type-graphql-dataloader";
 
 @ObjectType()
 @Entity()
@@ -19,7 +21,7 @@ export class Person extends BaseEntity {
         type: 'varchar',
         nullable: true
     })
-    phone: string
+    phone?: string
 
     @Field(() => String)
     @Column({
@@ -33,7 +35,7 @@ export class Person extends BaseEntity {
         type: 'varchar',
         nullable: true
     })
-    image: string
+    image?: string
 
     @Field()
     @Column({default: 'Aadhar'})
@@ -48,6 +50,13 @@ export class Person extends BaseEntity {
         type: 'varchar',
         nullable: true
     })
-    emergenyContact: string
+    emergenyContact?: string
+
+
+    @Field(() => [Rent],{nullable: true})
+    // @TypeormLoader()
+    @OneToMany(() => Rent, rent => rent.person,
+    )
+    rents?: Rent[]
 
 }

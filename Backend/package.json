@@ -26,6 +26,7 @@
     "reflect-metadata": "^0.1.14",
     "tsc-watch": "^6.0.4",
     "type-graphql": "^2.0.0-beta.3",
+    "type-graphql-dataloader": "^0.5.1",
     "typeorm": "^0.3.20"
   }
 }

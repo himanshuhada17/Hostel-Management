@@ -13,7 +13,6 @@ exports.Rent = void 0;
 const type_graphql_1 = require("type-graphql");
 const typeorm_1 = require("typeorm");
 const Person_1 = require("./Person");
-const Bed_1 = require("./Bed");
 let Rent = class Rent extends typeorm_1.BaseEntity {
 };
 exports.Rent = Rent;
@@ -50,13 +49,19 @@ __decorate([
     __metadata("design:type", Date)
 ], Rent.prototype, "updatedAt", void 0);
 __decorate([
-    (0, typeorm_1.ManyToOne)(() => Person_1.Person, (person) => person.rents),
+    (0, type_graphql_1.Field)(() => String),
+    (0, typeorm_1.Column)({ type: 'varchar' }),
+    __metadata("design:type", String)
+], Rent.prototype, "personId", void 0);
+__decorate([
+    (0, type_graphql_1.Field)(() => Person_1.Person)
+    // @TypeormLoader()
+    ,
+    (0, typeorm_1.ManyToOne)(() => Person_1.Person, person => person.rents, {
+        onDelete: 'CASCADE'
+    }),
     __metadata("design:type", Person_1.Person)
 ], Rent.prototype, "person", void 0);
-__decorate([
-    (0, typeorm_1.ManyToOne)(() => Bed_1.Bed, (bed) => bed.rents),
-    __metadata("design:type", Bed_1.Bed)
-], Rent.prototype, "bed", void 0);
 exports.Rent = Rent = __decorate([
     (0, type_graphql_1.ObjectType)(),
     (0, typeorm_1.Entity)()

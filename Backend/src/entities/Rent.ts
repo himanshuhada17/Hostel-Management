@@ -1,5 +1,7 @@
 import { Field, ID, ObjectType } from "type-graphql";
-import { BaseEntity, Column, CreateDateColumn, Entity, ManyToOne, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
+import { BaseEntity, Column, CreateDateColumn, Entity, ManyToOne, OneToMany, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
+import { Person } from "./Person";
+import { TypeormLoader } from "type-graphql-dataloader";
 
 @ObjectType()
 @Entity()
@@ -29,5 +31,17 @@ export class Rent extends BaseEntity {
     @Field()
     @UpdateDateColumn({type: 'timestamp'})
     updatedAt: Date
+
+    @Field(() => String)
+    @Column({type: 'varchar'})
+    personId: string
+
+    @Field(() => Person)
+    // @TypeormLoader()
+    @ManyToOne(() => Person, person => person.rents,{
+        onDelete: 'CASCADE'
+
+    })
+    person: Person
 
 }
