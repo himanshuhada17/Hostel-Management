@@ -17,40 +17,40 @@ let User = class User extends typeorm_1.BaseEntity {
 exports.User = User;
 __decorate([
     (0, type_graphql_1.Field)(() => type_graphql_1.ID),
-    (0, typeorm_1.PrimaryGeneratedColumn)('uuid'),
+    (0, typeorm_1.PrimaryGeneratedColumn)("uuid"),
     __metadata("design:type", String)
 ], User.prototype, "id", void 0);
 __decorate([
     (0, type_graphql_1.Field)(() => String),
     (0, typeorm_1.Column)({
-        type: 'varchar',
+        type: "varchar",
     }),
     __metadata("design:type", String)
 ], User.prototype, "name", void 0);
 __decorate([
     (0, type_graphql_1.Field)(() => String),
     (0, typeorm_1.Column)({
-        type: 'varchar',
-        unique: true
+        type: "varchar",
+        unique: true,
     }),
     __metadata("design:type", String)
 ], User.prototype, "username", void 0);
 __decorate([
     (0, type_graphql_1.Field)(() => String),
     (0, typeorm_1.Column)({
-        type: 'varchar',
-        unique: true
+        type: "varchar",
+        unique: true,
     }),
     __metadata("design:type", String)
 ], User.prototype, "email", void 0);
 __decorate([
     (0, type_graphql_1.Field)(() => String),
     (0, typeorm_1.Column)({
-        type: 'varchar',
+        type: "varchar",
     }),
     __metadata("design:type", String)
 ], User.prototype, "password", void 0);
 exports.User = User = __decorate([
     (0, type_graphql_1.ObjectType)(),
-    (0, typeorm_1.Entity)({ name: 'user' })
+    (0, typeorm_1.Entity)({ name: "user" })
 ], User);

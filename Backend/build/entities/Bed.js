@@ -20,47 +20,47 @@ let Bed = class Bed extends typeorm_1.BaseEntity {
 exports.Bed = Bed;
 __decorate([
     (0, type_graphql_1.Field)(() => type_graphql_1.ID),
-    (0, typeorm_1.PrimaryGeneratedColumn)('uuid'),
+    (0, typeorm_1.PrimaryGeneratedColumn)("uuid"),
     __metadata("design:type", String)
 ], Bed.prototype, "id", void 0);
 __decorate([
     (0, type_graphql_1.Field)(() => String),
     (0, typeorm_1.Column)({
-        type: 'varchar',
-        unique: true
+        type: "varchar",
+        unique: true,
     }),
     __metadata("design:type", String)
 ], Bed.prototype, "bedNumber", void 0);
 __decorate([
     (0, type_graphql_1.Field)(),
-    (0, typeorm_1.Column)({ default: 'Available' }),
+    (0, typeorm_1.Column)({ default: "Available" }),
     __metadata("design:type", String)
 ], Bed.prototype, "status", void 0);
 __decorate([
     (0, type_graphql_1.Field)(() => String),
     (0, typeorm_1.Column)({
-        type: 'varchar',
+        type: "varchar",
     }),
     __metadata("design:type", String)
 ], Bed.prototype, "amount", void 0);
 __decorate([
     (0, type_graphql_1.Field)(() => [Rent_1.Rent]),
-    (0, typeorm_1.OneToMany)(() => Rent_1.Rent, rent => rent.bed),
+    (0, typeorm_1.OneToMany)(() => Rent_1.Rent, (rent) => rent.bed),
     __metadata("design:type", Array)
 ], Bed.prototype, "rents", void 0);
 __decorate([
     (0, type_graphql_1.Field)(() => String),
-    (0, typeorm_1.Column)({ type: 'varchar' }),
+    (0, typeorm_1.Column)({ type: "varchar" }),
     __metadata("design:type", String)
 ], Bed.prototype, "roomId", void 0);
 __decorate([
     (0, type_graphql_1.Field)(() => Room_1.Room),
-    (0, typeorm_1.ManyToOne)(() => Room_1.Room, room => room.beds),
+    (0, typeorm_1.ManyToOne)(() => Room_1.Room, (room) => room.beds),
     __metadata("design:type", Room_1.Room)
 ], Bed.prototype, "room", void 0);
 __decorate([
     (0, type_graphql_1.Field)(() => Person_1.Person),
-    (0, typeorm_1.OneToOne)(() => Person_1.Person, person => person.bed),
+    (0, typeorm_1.OneToOne)(() => Person_1.Person, (person) => person.bed),
     __metadata("design:type", Person_1.Person)
 ], Bed.prototype, "person", void 0);
 exports.Bed = Bed = __decorate([

@@ -1,5 +1,13 @@
 import { Field, ID, ObjectType } from "type-graphql";
-import { BaseEntity, Column, Entity, ManyToOne, OneToMany, OneToOne, PrimaryGeneratedColumn } from "typeorm";
+import {
+  BaseEntity,
+  Column,
+  Entity,
+  ManyToOne,
+  OneToMany,
+  OneToOne,
+  PrimaryGeneratedColumn,
+} from "typeorm";
 import { Rent } from "./Rent";
 import { Room } from "./Room";
 import { Bed } from "./Bed";
@@ -8,68 +16,66 @@ import { Bed } from "./Bed";
 @ObjectType()
 @Entity()
 export class Person extends BaseEntity {
-    @Field(() => ID)
-    @PrimaryGeneratedColumn('uuid')
-    id: string
+  @Field(() => ID)
+  @PrimaryGeneratedColumn("uuid")
+  id: string;
 
-    @Field(() => String)
-    @Column({
-        type: 'varchar'
-    })
-    name: string
+  @Field(() => String)
+  @Column({
+    type: "varchar",
+  })
+  name: string;
 
-    @Field(() => String,{nullable: true})
-    @Column({
-        type: 'varchar',
-        nullable: true
-    })
-    phone?: string
+  @Field(() => String, { nullable: true })
+  @Column({
+    type: "varchar",
+    nullable: true,
+  })
+  phone?: string;
 
-    @Field(() => String)
-    @Column({
-        type: 'varchar',
-        unique: true
-    })
-    email: string
+  @Field(() => String)
+  @Column({
+    type: "varchar",
+    unique: true,
+  })
+  email: string;
 
-    @Field(() => String,{nullable: true})
-    @Column({
-        type: 'varchar',
-        nullable: true
-    })
-    image?: string
+  @Field(() => String, { nullable: true })
+  @Column({
+    type: "varchar",
+    nullable: true,
+  })
+  image?: string;
 
-    @Field()
-    @Column({default: 'Aadhar'})
-    idProof:  'Aadhar' | 'VoterID' | 'Passport' | 'DrivingLicense'
+  @Field()
+  @Column({ default: "Aadhar" })
+  idProof: "Aadhar" | "VoterID" | "Passport" | "DrivingLicense";
 
-    @Field(() => String)
-    @Column({type: 'varchar',unique: true})
-    idNumber: string
+  @Field(() => String)
+  @Column({ type: "varchar", unique: true })
+  idNumber: string;
 
-    @Field(() => String,{nullable: true})
-    @Column({
-        type: 'varchar',
-        nullable: true
-    })
-    emergenyContact?: string
+  @Field(() => String, { nullable: true })
+  @Column({
+    type: "varchar",
+    nullable: true,
+  })
+  emergenyContact?: string;
 
+  @Field(() => [Rent], { nullable: true })
+  // @TypeormLoader()
+  @OneToMany(() => Rent, (rent) => rent.person)
+  rents?: Rent[];
 
-    @Field(() => [Rent],{nullable: true})
-    // @TypeormLoader()
-    @OneToMany(() => Rent, rent => rent.person,
-    )
-    rents?: Rent[]
+  @Field(() => String)
+  @Column({ type: "varchar" })
+  roomId: string;
 
-    @Field(() => String)
-    @Column({type: 'varchar'})
-    roomId: string
-    
-    @Field(() => Room)
-    @ManyToOne(() => Room,room => room.persons)
-    room: Room
+  @Field(() => Room)
+  @ManyToOne(() => Room, (room) => room.persons)
+  room: Room;
 
-    @Field(() => Bed)
-    @OneToOne(() => Bed,bed => bed.person)
-    bed: Bed
+  @Field(() => Bed)
+  @OneToOne(() => Bed, (bed) => bed.person)
+  bed: Bed;
 }

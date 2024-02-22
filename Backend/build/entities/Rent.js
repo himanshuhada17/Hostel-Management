@@ -21,12 +21,12 @@ let Rent = class Rent extends typeorm_1.BaseEntity {
 exports.Rent = Rent;
 __decorate([
     (0, type_graphql_1.Field)(() => type_graphql_1.ID),
-    (0, typeorm_1.PrimaryGeneratedColumn)('uuid'),
+    (0, typeorm_1.PrimaryGeneratedColumn)("uuid"),
     __metadata("design:type", String)
 ], Rent.prototype, "id", void 0);
 __decorate([
     (0, type_graphql_1.Field)(),
-    (0, typeorm_1.Column)({ default: 'Unpaid' }),
+    (0, typeorm_1.Column)({ default: "Unpaid" }),
     __metadata("design:type", String)
 ], Rent.prototype, "status", void 0);
 __decorate([
@@ -36,46 +36,46 @@ __decorate([
 ], Rent.prototype, "dueDate", void 0);
 __decorate([
     (0, type_graphql_1.Field)(),
-    (0, typeorm_1.CreateDateColumn)({ type: 'timestamp' }),
+    (0, typeorm_1.CreateDateColumn)({ type: "timestamp" }),
     __metadata("design:type", Date)
 ], Rent.prototype, "createdAt", void 0);
 __decorate([
     (0, type_graphql_1.Field)(),
-    (0, typeorm_1.UpdateDateColumn)({ type: 'timestamp' }),
+    (0, typeorm_1.UpdateDateColumn)({ type: "timestamp" }),
     __metadata("design:type", Date)
 ], Rent.prototype, "updatedAt", void 0);
 __decorate([
     (0, type_graphql_1.Field)(() => String),
-    (0, typeorm_1.Column)({ type: 'varchar' }),
+    (0, typeorm_1.Column)({ type: "varchar" }),
     __metadata("design:type", String)
 ], Rent.prototype, "personId", void 0);
 __decorate([
     (0, type_graphql_1.Field)(() => Person_1.Person)
     // @TypeormLoader()
     ,
-    (0, typeorm_1.ManyToOne)(() => Person_1.Person, person => person.rents, {
-        onDelete: 'CASCADE'
+    (0, typeorm_1.ManyToOne)(() => Person_1.Person, (person) => person.rents, {
+        onDelete: "CASCADE",
     }),
     __metadata("design:type", Person_1.Person)
 ], Rent.prototype, "person", void 0);
 __decorate([
     (0, type_graphql_1.Field)(() => String),
-    (0, typeorm_1.Column)({ type: 'varchar' }),
+    (0, typeorm_1.Column)({ type: "varchar" }),
     __metadata("design:type", String)
 ], Rent.prototype, "bedId", void 0);
 __decorate([
     (0, type_graphql_1.Field)(() => Bed_1.Bed),
-    (0, typeorm_1.ManyToOne)(() => Bed_1.Bed, bed => bed.rents),
+    (0, typeorm_1.ManyToOne)(() => Bed_1.Bed, (bed) => bed.rents),
     __metadata("design:type", Bed_1.Bed)
 ], Rent.prototype, "bed", void 0);
 __decorate([
     (0, type_graphql_1.Field)(() => String),
-    (0, typeorm_1.Column)({ type: 'varchar' }),
+    (0, typeorm_1.Column)({ type: "varchar" }),
     __metadata("design:type", String)
 ], Rent.prototype, "roomId", void 0);
 __decorate([
     (0, type_graphql_1.Field)(() => Room_1.Room),
-    (0, typeorm_1.ManyToOne)(() => Room_1.Room, room => room.rents),
+    (0, typeorm_1.ManyToOne)(() => Room_1.Room, (room) => room.rents),
     __metadata("design:type", Room_1.Room)
 ], Rent.prototype, "room", void 0);
 exports.Rent = Rent = __decorate([
