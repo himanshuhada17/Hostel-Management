@@ -1,7 +1,8 @@
 import { Field, ID, ObjectType } from "type-graphql";
-import { BaseEntity, Column, Entity, ManyToOne, OneToMany, PrimaryGeneratedColumn } from "typeorm";
+import { BaseEntity, Column, Entity, ManyToOne, OneToMany, OneToOne, PrimaryGeneratedColumn } from "typeorm";
 import { Rent } from "./Rent";
 import { Room } from "./Room";
+import { Bed } from "./Bed";
 // import { TypeormLoader } from "type-graphql-dataloader";
 
 @ObjectType()
@@ -67,4 +68,8 @@ export class Person extends BaseEntity {
     @Field(() => Room)
     @ManyToOne(() => Room,room => room.persons)
     room: Room
+
+    @Field(() => Bed)
+    @OneToOne(() => Bed,bed => bed.person)
+    bed: Bed
 }

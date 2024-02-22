@@ -14,6 +14,7 @@ const type_graphql_1 = require("type-graphql");
 const typeorm_1 = require("typeorm");
 const Rent_1 = require("./Rent");
 const Room_1 = require("./Room");
+const Bed_1 = require("./Bed");
 // import { TypeormLoader } from "type-graphql-dataloader";
 let Person = class Person extends typeorm_1.BaseEntity {
 };
@@ -89,6 +90,11 @@ __decorate([
     (0, typeorm_1.ManyToOne)(() => Room_1.Room, room => room.persons),
     __metadata("design:type", Room_1.Room)
 ], Person.prototype, "room", void 0);
+__decorate([
+    (0, type_graphql_1.Field)(() => Bed_1.Bed),
+    (0, typeorm_1.OneToOne)(() => Bed_1.Bed, bed => bed.person),
+    __metadata("design:type", Bed_1.Bed)
+], Person.prototype, "bed", void 0);
 exports.Person = Person = __decorate([
     (0, type_graphql_1.ObjectType)(),
     (0, typeorm_1.Entity)()

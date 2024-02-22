@@ -20,11 +20,6 @@ export class Rent extends BaseEntity {
     @Column()
     dueDate: Date
 
-    @Field(() => String)
-    @Column({
-        type: 'varchar',
-    })
-    amount: string
 
     @Field()
     @CreateDateColumn({type: 'timestamp'})

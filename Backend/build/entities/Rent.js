@@ -35,13 +35,6 @@ __decorate([
     __metadata("design:type", Date)
 ], Rent.prototype, "dueDate", void 0);
 __decorate([
-    (0, type_graphql_1.Field)(() => String),
-    (0, typeorm_1.Column)({
-        type: 'varchar',
-    }),
-    __metadata("design:type", String)
-], Rent.prototype, "amount", void 0);
-__decorate([
     (0, type_graphql_1.Field)(),
     (0, typeorm_1.CreateDateColumn)({ type: 'timestamp' }),
     __metadata("design:type", Date)
