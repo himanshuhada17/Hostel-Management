@@ -1,8 +1,6 @@
 import { Arg, Field, InputType, Mutation, Query, Resolver } from "type-graphql";
 import { Room } from "../entities/Room";
-import { promises } from "dns";
-import { info } from "console";
-import { query } from "express";
+
 
 @InputType()
 export class RoomInput {
