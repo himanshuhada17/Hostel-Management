@@ -1,5 +1,8 @@
 import { Field, ID, ObjectType } from "type-graphql";
 import { BaseEntity, Column, Entity, OneToMany, PrimaryGeneratedColumn } from "typeorm";
+import { Bed } from "./Bed";
+import { Rent } from "./Rent";
+import { Person } from "./Person";
 
 
 @ObjectType()
@@ -8,7 +11,7 @@ export class Room extends BaseEntity {
 
     @Field(() => ID)
     @PrimaryGeneratedColumn('uuid')
-    ID: string
+    id: string
 
     @Field(() => String)
     @Column({
@@ -26,4 +29,16 @@ export class Room extends BaseEntity {
     @Field()
     @Column({default: 'Available'})
     roomStatus: 'Available' | 'Occupied'
+
+    @Field(() => [Bed])
+    @OneToMany(() => Bed,bed => bed.room)
+    beds: Bed[]
+
+    @Field(() => [Rent])
+    @OneToMany(() => Rent,rent => rent.room)
+    rents: Rent[]
+
+    @Field(() => [Person])
+    @OneToMany(() => Person,person => person.room)
+    persons: Person[]
 }

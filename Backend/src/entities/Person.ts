@@ -1,6 +1,7 @@
 import { Field, ID, ObjectType } from "type-graphql";
 import { BaseEntity, Column, Entity, ManyToOne, OneToMany, PrimaryGeneratedColumn } from "typeorm";
 import { Rent } from "./Rent";
+import { Room } from "./Room";
 // import { TypeormLoader } from "type-graphql-dataloader";
 
 @ObjectType()
@@ -59,4 +60,11 @@ export class Person extends BaseEntity {
     )
     rents?: Rent[]
 
+    @Field(() => String)
+    @Column({type: 'varchar'})
+    roomId: string
+    
+    @Field(() => Room)
+    @ManyToOne(() => Room,room => room.persons)
+    room: Room
 }

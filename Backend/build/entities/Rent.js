@@ -13,6 +13,9 @@ exports.Rent = void 0;
 const type_graphql_1 = require("type-graphql");
 const typeorm_1 = require("typeorm");
 const Person_1 = require("./Person");
+// import { TypeormLoader } from "type-graphql-dataloader";
+const Bed_1 = require("./Bed");
+const Room_1 = require("./Room");
 let Rent = class Rent extends typeorm_1.BaseEntity {
 };
 exports.Rent = Rent;
@@ -62,6 +65,26 @@ __decorate([
     }),
     __metadata("design:type", Person_1.Person)
 ], Rent.prototype, "person", void 0);
+__decorate([
+    (0, type_graphql_1.Field)(() => String),
+    (0, typeorm_1.Column)({ type: 'varchar' }),
+    __metadata("design:type", String)
+], Rent.prototype, "bedId", void 0);
+__decorate([
+    (0, type_graphql_1.Field)(() => Bed_1.Bed),
+    (0, typeorm_1.ManyToOne)(() => Bed_1.Bed, bed => bed.rents),
+    __metadata("design:type", Bed_1.Bed)
+], Rent.prototype, "bed", void 0);
+__decorate([
+    (0, type_graphql_1.Field)(() => String),
+    (0, typeorm_1.Column)({ type: 'varchar' }),
+    __metadata("design:type", String)
+], Rent.prototype, "roomId", void 0);
+__decorate([
+    (0, type_graphql_1.Field)(() => Room_1.Room),
+    (0, typeorm_1.ManyToOne)(() => Room_1.Room, room => room.rents),
+    __metadata("design:type", Room_1.Room)
+], Rent.prototype, "room", void 0);
 exports.Rent = Rent = __decorate([
     (0, type_graphql_1.ObjectType)(),
     (0, typeorm_1.Entity)()

@@ -1,6 +1,7 @@
 import { Arg, Field, InputType, Mutation, Query, Resolver } from "type-graphql";
 import { User } from "../entities/User";
 
+
 @InputType()
 class UserInput {
   @Field(() => String)

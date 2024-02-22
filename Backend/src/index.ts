@@ -4,8 +4,7 @@ import { expressMiddleware } from "@apollo/server/express4";
 import { db_connection } from "./database";
 import { buildSchema } from "type-graphql";
 import { UserResolver } from "./resolver/UserResolver";
-import { RentResolver } from "./resolver/RentResolver";
-import { PersonResolver } from "./resolver/PersonResolver";
+
 import "reflect-metadata";
 import cors from 'cors'
 
@@ -18,7 +17,7 @@ async function server_setup() {
   // create a  graphql server
   const apolloServer = new ApolloServer({
     schema: await buildSchema({
-      resolvers: [UserResolver,RentResolver,PersonResolver],
+      resolvers: [UserResolver],
     }),
   });
 
