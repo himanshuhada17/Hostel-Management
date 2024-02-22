@@ -1,14 +1,14 @@
 import { Arg, Field, InputType, Mutation, Query, Resolver } from "type-graphql";
 import { User } from "../entities/User";
 
-
+//
 @InputType()
 class UserInput {
   @Field(() => String)
-  firstName: string;
+  name: string;
 
   @Field(() => String)
-  lastName: string;
+  username: string;
 
   @Field(() => String)
   email: string;
@@ -18,58 +18,63 @@ class UserInput {
 }
 
 @InputType()
-class updateUserInput {
+class UpdateUserInput {
   @Field(() => String)
-  firstName: string;
+  name: string;
 
   @Field(() => String)
-  lastName: string;
-
-  @Field(() => String, { nullable: true })
-  email?: string;
+  username: string;
 
   @Field(() => String)
   password: string;
 }
+
 @Resolver()
 export class UserResolver {
+  //get all users
+  @Query(() => [User])
+  async getAllUsers(): Promise<User[]> {
+    const allUsers = await User.find();
+    return allUsers;
+  }
+
   //get user by id
   @Query(() => User)
-  async getUserById(@Arg("id") id: string): Promise<User | null> {
+  async getUserById(@Arg("id") id: string): Promise<User> {
     const user = await User.findOne({
-      where: { id },
+      where: {
+        id,
+      },
     });
-    if (!user) throw new Error("Support Ticket not found");
+    if (!user) throw new Error("No user found");
     return user;
   }
 
-  // get all users
-  @Query(() => [User])
-  async getAllUsers(): Promise<User[]> {
-    return await User.find();
-  }
-
-  // delete user by id
+  //delete user by id
   @Mutation(() => String)
   async deleteUser(@Arg("id") id: string): Promise<String> {
-    await User.delete({ id });
+    const user = await User.findOne({ where: { id } });
+    if (!user) throw new Error("User not found");
+    await User.delete(id);
     return "User deleted successfully";
   }
 
-  // create user
-  @Mutation(() => String)
-  async createUser(@Arg("data") data: UserInput): Promise<string> {
-    const user = User.create(data as any).save();
-    return "User created successfully";
+  //create a user
+  @Mutation(() => User)
+  async createUser(@Arg("input") input: UserInput): Promise<User> {
+    const user = await User.create(input as any).save();
+    return user;
   }
 
-  // update user
-  @Mutation(() => String)
+  //update a user
+  @Mutation(() => User)
   async updateUser(
     @Arg("id") id: string,
-    @Arg("data") data: updateUserInput
-  ): Promise<string> {
-    await User.update({ id }, data as any);
-    return "User updated successfully";
+    @Arg("input") input: UpdateUserInput
+  ): Promise<User> {
+    const user = await User.findOne({ where: { id } });
+    if (!user) throw new Error("User not found");
+    const updateUser = Object.assign(user, input).save();
+    return updateUser;
   }
 }

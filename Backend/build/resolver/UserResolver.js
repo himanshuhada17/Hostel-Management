@@ -24,16 +24,17 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.UserResolver = void 0;
 const type_graphql_1 = require("type-graphql");
 const User_1 = require("../entities/User");
+//
 let UserInput = class UserInput {
 };
 __decorate([
     (0, type_graphql_1.Field)(() => String),
     __metadata("design:type", String)
-], UserInput.prototype, "firstName", void 0);
+], UserInput.prototype, "name", void 0);
 __decorate([
     (0, type_graphql_1.Field)(() => String),
     __metadata("design:type", String)
-], UserInput.prototype, "lastName", void 0);
+], UserInput.prototype, "username", void 0);
 __decorate([
     (0, type_graphql_1.Field)(() => String),
     __metadata("design:type", String)
@@ -45,68 +46,79 @@ __decorate([
 UserInput = __decorate([
     (0, type_graphql_1.InputType)()
 ], UserInput);
-let updateUserInput = class updateUserInput {
+let UpdateUserInput = class UpdateUserInput {
 };
 __decorate([
     (0, type_graphql_1.Field)(() => String),
     __metadata("design:type", String)
-], updateUserInput.prototype, "firstName", void 0);
+], UpdateUserInput.prototype, "name", void 0);
 __decorate([
     (0, type_graphql_1.Field)(() => String),
     __metadata("design:type", String)
-], updateUserInput.prototype, "lastName", void 0);
-__decorate([
-    (0, type_graphql_1.Field)(() => String, { nullable: true }),
-    __metadata("design:type", String)
-], updateUserInput.prototype, "email", void 0);
+], UpdateUserInput.prototype, "username", void 0);
 __decorate([
     (0, type_graphql_1.Field)(() => String),
     __metadata("design:type", String)
-], updateUserInput.prototype, "password", void 0);
-updateUserInput = __decorate([
+], UpdateUserInput.prototype, "password", void 0);
+UpdateUserInput = __decorate([
     (0, type_graphql_1.InputType)()
-], updateUserInput);
+], UpdateUserInput);
 let UserResolver = class UserResolver {
+    //get all users
+    getAllUsers() {
+        return __awaiter(this, void 0, void 0, function* () {
+            const allUsers = yield User_1.User.find();
+            return allUsers;
+        });
+    }
     //get user by id
     getUserById(id) {
         return __awaiter(this, void 0, void 0, function* () {
             const user = yield User_1.User.findOne({
-                where: { id },
+                where: {
+                    id,
+                },
             });
             if (!user)
-                throw new Error("Support Ticket not found");
+                throw new Error("No user found");
             return user;
         });
     }
-    // get all users
-    getAllUsers() {
-        return __awaiter(this, void 0, void 0, function* () {
-            return yield User_1.User.find();
-        });
-    }
-    // delete user by id
+    //delete user by id
     deleteUser(id) {
         return __awaiter(this, void 0, void 0, function* () {
-            yield User_1.User.delete({ id });
+            const user = yield User_1.User.findOne({ where: { id } });
+            if (!user)
+                throw new Error("User not found");
+            yield User_1.User.delete(id);
             return "User deleted successfully";
         });
     }
-    // create user
-    createUser(data) {
+    //create a user
+    createUser(input) {
         return __awaiter(this, void 0, void 0, function* () {
-            const user = User_1.User.create(data).save();
-            return "User created successfully";
+            const user = yield User_1.User.create(input).save();
+            return user;
         });
     }
-    // update user
-    updateUser(id, data) {
+    //update a user
+    updateUser(id, input) {
         return __awaiter(this, void 0, void 0, function* () {
-            yield User_1.User.update({ id }, data);
-            return "User updated successfully";
+            const user = yield User_1.User.findOne({ where: { id } });
+            if (!user)
+                throw new Error("User not found");
+            const updateUser = Object.assign(user, input).save();
+            return updateUser;
         });
     }
 };
 exports.UserResolver = UserResolver;
+__decorate([
+    (0, type_graphql_1.Query)(() => [User_1.User]),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", []),
+    __metadata("design:returntype", Promise)
+], UserResolver.prototype, "getAllUsers", null);
 __decorate([
     (0, type_graphql_1.Query)(() => User_1.User),
     __param(0, (0, type_graphql_1.Arg)("id")),
@@ -115,12 +127,6 @@ __decorate([
     __metadata("design:returntype", Promise)
 ], UserResolver.prototype, "getUserById", null);
 __decorate([
-    (0, type_graphql_1.Query)(() => [User_1.User]),
-    __metadata("design:type", Function),
-    __metadata("design:paramtypes", []),
-    __metadata("design:returntype", Promise)
-], UserResolver.prototype, "getAllUsers", null);
-__decorate([
     (0, type_graphql_1.Mutation)(() => String),
     __param(0, (0, type_graphql_1.Arg)("id")),
     __metadata("design:type", Function),
@@ -128,18 +134,18 @@ __decorate([
     __metadata("design:returntype", Promise)
 ], UserResolver.prototype, "deleteUser", null);
 __decorate([
-    (0, type_graphql_1.Mutation)(() => String),
-    __param(0, (0, type_graphql_1.Arg)("data")),
+    (0, type_graphql_1.Mutation)(() => User_1.User),
+    __param(0, (0, type_graphql_1.Arg)("input")),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [UserInput]),
     __metadata("design:returntype", Promise)
 ], UserResolver.prototype, "createUser", null);
 __decorate([
-    (0, type_graphql_1.Mutation)(() => String),
+    (0, type_graphql_1.Mutation)(() => User_1.User),
     __param(0, (0, type_graphql_1.Arg)("id")),
-    __param(1, (0, type_graphql_1.Arg)("data")),
+    __param(1, (0, type_graphql_1.Arg)("input")),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [String, updateUserInput]),
+    __metadata("design:paramtypes", [String, UpdateUserInput]),
     __metadata("design:returntype", Promise)
 ], UserResolver.prototype, "updateUser", null);
 exports.UserResolver = UserResolver = __decorate([
