@@ -49,7 +49,7 @@ export class Person extends BaseEntity {
 
   @Field()
   @Column({ default: "Aadhar" })
-  idProof: "Aadhar" | "VoterID" | "Passport" | "DrivingLicense";
+  idProof: "Aadhar" | "VoterID" | "Passport" | "Driving License";
 
   @Field(() => String)
   @Column({ type: "varchar", unique: true })
@@ -64,7 +64,7 @@ export class Person extends BaseEntity {
 
   @Field(() => [Rent], { nullable: true })
   // @TypeormLoader()
-  @OneToMany(() => Rent, (rent) => rent.person)
+  @OneToMany(() => Rent, rent => rent.person)
   rents?: Rent[];
 
   @Field(() => String)
@@ -72,10 +72,10 @@ export class Person extends BaseEntity {
   roomId: string;
 
   @Field(() => Room)
-  @ManyToOne(() => Room, (room) => room.persons)
+  @ManyToOne(() => Room, room => room.persons)
   room: Room;
 
   @Field(() => Bed)
-  @OneToOne(() => Bed, (bed) => bed.person)
+  @OneToOne(() => Bed, bed => bed.person)
   bed: Bed;
 }

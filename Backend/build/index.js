@@ -20,6 +20,8 @@ const type_graphql_1 = require("type-graphql");
 const UserResolver_1 = require("./resolver/UserResolver");
 require("reflect-metadata");
 const cors_1 = __importDefault(require("cors"));
+const PersonResolver_1 = require("./resolver/PersonResolver");
+const RoomResolver_1 = require("./resolver/RoomResolver");
 function server_setup() {
     return __awaiter(this, void 0, void 0, function* () {
         const app = (0, express_1.default)();
@@ -29,7 +31,7 @@ function server_setup() {
         // create a  graphql server
         const apolloServer = new server_1.ApolloServer({
             schema: yield (0, type_graphql_1.buildSchema)({
-                resolvers: [UserResolver_1.UserResolver],
+                resolvers: [UserResolver_1.UserResolver, PersonResolver_1.PersonResolver, RoomResolver_1.RoomResolver],
             }),
         });
         // start the apollo server

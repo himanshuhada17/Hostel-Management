@@ -77,7 +77,7 @@ __decorate([
     (0, type_graphql_1.Field)(() => [Rent_1.Rent], { nullable: true })
     // @TypeormLoader()
     ,
-    (0, typeorm_1.OneToMany)(() => Rent_1.Rent, (rent) => rent.person),
+    (0, typeorm_1.OneToMany)(() => Rent_1.Rent, rent => rent.person),
     __metadata("design:type", Array)
 ], Person.prototype, "rents", void 0);
 __decorate([
@@ -87,12 +87,12 @@ __decorate([
 ], Person.prototype, "roomId", void 0);
 __decorate([
     (0, type_graphql_1.Field)(() => Room_1.Room),
-    (0, typeorm_1.ManyToOne)(() => Room_1.Room, (room) => room.persons),
+    (0, typeorm_1.ManyToOne)(() => Room_1.Room, room => room.persons),
     __metadata("design:type", Room_1.Room)
 ], Person.prototype, "room", void 0);
 __decorate([
     (0, type_graphql_1.Field)(() => Bed_1.Bed),
-    (0, typeorm_1.OneToOne)(() => Bed_1.Bed, (bed) => bed.person),
+    (0, typeorm_1.OneToOne)(() => Bed_1.Bed, bed => bed.person),
     __metadata("design:type", Bed_1.Bed)
 ], Person.prototype, "bed", void 0);
 exports.Person = Person = __decorate([

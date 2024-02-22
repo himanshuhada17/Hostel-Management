@@ -21,11 +21,12 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.PersonResolver = void 0;
+exports.PersonResolver = exports.UpdatePersonInput = exports.PersonInput = void 0;
 const type_graphql_1 = require("type-graphql");
 const Person_1 = require("../entities/Person");
 let PersonInput = class PersonInput {
 };
+exports.PersonInput = PersonInput;
 __decorate([
     (0, type_graphql_1.Field)(() => String),
     __metadata("design:type", String)
@@ -54,54 +55,101 @@ __decorate([
     (0, type_graphql_1.Field)(() => String, { nullable: true }),
     __metadata("design:type", String)
 ], PersonInput.prototype, "emergenyContact", void 0);
-PersonInput = __decorate([
+__decorate([
+    (0, type_graphql_1.Field)(() => String),
+    __metadata("design:type", String)
+], PersonInput.prototype, "roomId", void 0);
+exports.PersonInput = PersonInput = __decorate([
     (0, type_graphql_1.InputType)()
 ], PersonInput);
+let UpdatePersonInput = class UpdatePersonInput {
+};
+exports.UpdatePersonInput = UpdatePersonInput;
+__decorate([
+    (0, type_graphql_1.Field)(() => String),
+    __metadata("design:type", String)
+], UpdatePersonInput.prototype, "name", void 0);
+__decorate([
+    (0, type_graphql_1.Field)(() => String, { nullable: true }),
+    __metadata("design:type", String)
+], UpdatePersonInput.prototype, "phone", void 0);
+__decorate([
+    (0, type_graphql_1.Field)(() => String, { nullable: true }),
+    __metadata("design:type", String)
+], UpdatePersonInput.prototype, "image", void 0);
+__decorate([
+    (0, type_graphql_1.Field)(),
+    __metadata("design:type", String)
+], UpdatePersonInput.prototype, "idProof", void 0);
+__decorate([
+    (0, type_graphql_1.Field)(() => String),
+    __metadata("design:type", String)
+], UpdatePersonInput.prototype, "idNumber", void 0);
+__decorate([
+    (0, type_graphql_1.Field)(() => String, { nullable: true }),
+    __metadata("design:type", String)
+], UpdatePersonInput.prototype, "emergenyContact", void 0);
+exports.UpdatePersonInput = UpdatePersonInput = __decorate([
+    (0, type_graphql_1.InputType)()
+], UpdatePersonInput);
 let PersonResolver = class PersonResolver {
-    createPerson(data) {
+    //CREATE PERSON
+    createPerson(input) {
         return __awaiter(this, void 0, void 0, function* () {
-            const person = Person_1.Person.create(data).save();
+            const person = Person_1.Person.create(input).save();
             return person;
         });
     }
-    getAllPersons() {
+    //UPDATE PERSON
+    updatePerson(id, input) {
         return __awaiter(this, void 0, void 0, function* () {
-            return yield Person_1.Person.find();
+            const person = yield Person_1.Person.findOne({ where: { id } });
+            if (!person)
+                throw new Error("Person not found");
+            const updatedPerson = yield Object.assign(person, input).save();
+            return updatedPerson;
         });
     }
+    //GET ALL USERS
+    getAllPersons() {
+        return __awaiter(this, void 0, void 0, function* () {
+            const allPersons = yield Person_1.Person.find({
+                relations: ["room"],
+            });
+            return allPersons;
+        });
+    }
+    //GET PERSON BY ID
     getPersonById(id) {
         return __awaiter(this, void 0, void 0, function* () {
             const person = yield Person_1.Person.findOne({
-                where: { id }
-            });
-            return person;
-        });
-    }
-    deletePerson(id) {
-        return __awaiter(this, void 0, void 0, function* () {
-            const person = yield Person_1.Person.findOne({
                 where: {
-                    id: id
+                    id
                 },
+                relations: ["room"],
             });
-            if (person) {
-                yield Person_1.Person.delete(id);
-            }
-            else {
-                return "Person Not Found";
-            }
-            return "Person Deleted";
+            if (!person)
+                throw new Error("No person found");
+            return person;
         });
     }
 };
 exports.PersonResolver = PersonResolver;
 __decorate([
     (0, type_graphql_1.Mutation)(() => Person_1.Person),
-    __param(0, (0, type_graphql_1.Arg)("data")),
+    __param(0, (0, type_graphql_1.Arg)("input")),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [PersonInput]),
     __metadata("design:returntype", Promise)
 ], PersonResolver.prototype, "createPerson", null);
+__decorate([
+    (0, type_graphql_1.Mutation)(() => Person_1.Person),
+    __param(0, (0, type_graphql_1.Arg)("id")),
+    __param(1, (0, type_graphql_1.Arg)("input")),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [String, UpdatePersonInput]),
+    __metadata("design:returntype", Promise)
+], PersonResolver.prototype, "updatePerson", null);
 __decorate([
     (0, type_graphql_1.Query)(() => [Person_1.Person]),
     __metadata("design:type", Function),
@@ -115,13 +163,6 @@ __decorate([
     __metadata("design:paramtypes", [String]),
     __metadata("design:returntype", Promise)
 ], PersonResolver.prototype, "getPersonById", null);
-__decorate([
-    (0, type_graphql_1.Mutation)(() => String),
-    __param(0, (0, type_graphql_1.Arg)("id")),
-    __metadata("design:type", Function),
-    __metadata("design:paramtypes", [String]),
-    __metadata("design:returntype", Promise)
-], PersonResolver.prototype, "deletePerson", null);
 exports.PersonResolver = PersonResolver = __decorate([
     (0, type_graphql_1.Resolver)()
 ], PersonResolver);
