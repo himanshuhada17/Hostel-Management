@@ -12,13 +12,14 @@ export class User extends BaseEntity{
     @Column({
         type: 'varchar',
     })
-    firstName: string;
+    name: string;
 
-    @Field(() => String)
-    @Column({ 
+    @Field(() => String)   
+    @Column({
         type: 'varchar',
+        unique: true
     })
-    lastName: string;
+    username: string;
 
     @Field(() => String)
     @Column({
