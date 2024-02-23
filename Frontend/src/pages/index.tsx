@@ -1,10 +1,9 @@
-import User from "@/components/User";
-
+import Structure from "@/components/Structure";
 
 export default function Home() {
   return (
     <>
-    <User/>
+    <Structure/>
     </>
   );
 }

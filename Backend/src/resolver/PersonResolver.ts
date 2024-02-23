@@ -71,7 +71,7 @@ export class PersonResolver {
     return updatedPerson;
   }
 
-  //GET ALL USERS
+  //GET ALL PERSONS
   @Query(() => [Person])
   async getAllPersons(): Promise<Person[]> {
     const allPersons = await Person.find({
