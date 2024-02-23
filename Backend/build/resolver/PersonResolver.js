@@ -21,12 +21,11 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.PersonResolver = exports.UpdatePersonInput = exports.PersonInput = void 0;
+exports.PersonResolver = void 0;
 const type_graphql_1 = require("type-graphql");
 const Person_1 = require("../entities/Person");
 let PersonInput = class PersonInput {
 };
-exports.PersonInput = PersonInput;
 __decorate([
     (0, type_graphql_1.Field)(() => String),
     __metadata("design:type", String)
@@ -59,12 +58,11 @@ __decorate([
     (0, type_graphql_1.Field)(() => String),
     __metadata("design:type", String)
 ], PersonInput.prototype, "roomId", void 0);
-exports.PersonInput = PersonInput = __decorate([
+PersonInput = __decorate([
     (0, type_graphql_1.InputType)()
 ], PersonInput);
 let UpdatePersonInput = class UpdatePersonInput {
 };
-exports.UpdatePersonInput = UpdatePersonInput;
 __decorate([
     (0, type_graphql_1.Field)(() => String),
     __metadata("design:type", String)
@@ -89,7 +87,7 @@ __decorate([
     (0, type_graphql_1.Field)(() => String, { nullable: true }),
     __metadata("design:type", String)
 ], UpdatePersonInput.prototype, "emergenyContact", void 0);
-exports.UpdatePersonInput = UpdatePersonInput = __decorate([
+UpdatePersonInput = __decorate([
     (0, type_graphql_1.InputType)()
 ], UpdatePersonInput);
 let PersonResolver = class PersonResolver {
@@ -110,7 +108,7 @@ let PersonResolver = class PersonResolver {
             return updatedPerson;
         });
     }
-    //GET ALL USERS
+    //GET ALL PERSONS
     getAllPersons() {
         return __awaiter(this, void 0, void 0, function* () {
             const allPersons = yield Person_1.Person.find({

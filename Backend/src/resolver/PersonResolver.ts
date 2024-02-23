@@ -3,7 +3,7 @@ import { Person } from "../entities/Person";
 import { query } from "express";
 
 @InputType()
-export class PersonInput {
+class PersonInput {
   @Field(() => String)
   name: string;
 
@@ -30,7 +30,7 @@ export class PersonInput {
 }
 
 @InputType()
-export class UpdatePersonInput {
+class UpdatePersonInput {
   @Field(() => String)
   name: string;
 

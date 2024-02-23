@@ -3,7 +3,7 @@ import { Room } from "../entities/Room";
 
 
 @InputType()
-export class RoomInput {
+class RoomInput {
   @Field(() => String)
   roomNumber: string;
 
@@ -15,7 +15,7 @@ export class RoomInput {
 }
 
 @InputType()
-export class UpdateRoomInput {
+class UpdateRoomInput {
   @Field()
   roomStatus: "Available" | "Occupied";
 }
