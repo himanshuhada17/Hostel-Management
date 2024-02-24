@@ -21,12 +21,11 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.RoomResolver = exports.UpdateRoomInput = exports.RoomInput = void 0;
+exports.RoomResolver = void 0;
 const type_graphql_1 = require("type-graphql");
 const Room_1 = require("../entities/Room");
 let RoomInput = class RoomInput {
 };
-exports.RoomInput = RoomInput;
 __decorate([
     (0, type_graphql_1.Field)(() => String),
     __metadata("design:type", String)
@@ -39,17 +38,16 @@ __decorate([
     (0, type_graphql_1.Field)(),
     __metadata("design:type", String)
 ], RoomInput.prototype, "roomStatus", void 0);
-exports.RoomInput = RoomInput = __decorate([
+RoomInput = __decorate([
     (0, type_graphql_1.InputType)()
 ], RoomInput);
 let UpdateRoomInput = class UpdateRoomInput {
 };
-exports.UpdateRoomInput = UpdateRoomInput;
 __decorate([
     (0, type_graphql_1.Field)(),
     __metadata("design:type", String)
 ], UpdateRoomInput.prototype, "roomStatus", void 0);
-exports.UpdateRoomInput = UpdateRoomInput = __decorate([
+UpdateRoomInput = __decorate([
     (0, type_graphql_1.InputType)()
 ], UpdateRoomInput);
 let RoomResolver = class RoomResolver {
