@@ -1,9 +1,9 @@
-import Structure from "@/components/Structure";
+import Dashboard from "@/components/dashboard";
 
 export default function Home() {
   return (
     <>
-    <Structure/>
+    <Dashboard/>
     </>
   );
 }
