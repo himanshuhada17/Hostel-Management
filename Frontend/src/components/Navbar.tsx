@@ -92,7 +92,7 @@ const Navbar: React.FC = () => {
               />
             </div>
             <div className="mr-4">
-              <Switch className="mr-3 bg-slate-300" checkedChildren="LIGHT" unCheckedChildren="DARK" />
+              <Switch className="mr-3 bg-slate-400" checkedChildren="LIGHT" unCheckedChildren="DARK" />
               <Avatar
                 style={{ backgroundColor: "orange", verticalAlign: "middle" }}
                 size="large"
