@@ -1,6 +1,5 @@
 import { Arg, Field, InputType, Mutation, Query, Resolver } from "type-graphql";
 import { Person } from "../entities/Person";
-import { query } from "express";
 
 @InputType()
 class PersonInput {

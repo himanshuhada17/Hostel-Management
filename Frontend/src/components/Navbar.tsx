@@ -1,14 +1,9 @@
 import {
-  Card,
   Menu,
   MenuProps,
-  Layout,
   Row,
   Col,
-  Tooltip,
-  Button,
   Input,
-  Form,
   Avatar,
   Switch,
 } from "antd";
@@ -62,9 +57,9 @@ const Navbar: React.FC = () => {
   return (
     <>
       <Row>
-        <Col span={2}>
+        <Col span={3}>
           <Menu
-          className="h-screen p-2 fixed w-[120px]"  
+          className="h-screen p-2 fixed w-[181px]"  
             // style={{
             //   width: "180",
             //   height: "100vh",
@@ -79,7 +74,7 @@ const Navbar: React.FC = () => {
             items={items}
           />
         </Col>
-        <Col span={22}>
+        <Col span={21}>
           <div className="flex justify-between items-center bg-white h-16  shadow-2xl shadow-slate-200">
             <div className="ml-4 hover:scale-110 transform transition duration-300 ease-in-out">
               <span className="font-light tracking-wide">Z O S T E L S</span>

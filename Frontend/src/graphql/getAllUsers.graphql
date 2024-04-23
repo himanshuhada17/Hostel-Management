@@ -1,9 +1,9 @@
 query GetAllUsers {
   getAllUsers {
     email
-    id
     name
     password
     username
+    id
   }
 }
