@@ -11,11 +11,11 @@ export default function App({ Component, pageProps }: AppProps) {
 
   return (
     <>
-      <Layout>
+      {/* <Layout> */}
         <ApolloProvider client={client}>
           <Component {...pageProps} />
         </ApolloProvider>
-      </Layout>
+      {/* </Layout> */}
     </>
   );
 }
