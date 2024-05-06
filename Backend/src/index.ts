@@ -9,6 +9,8 @@ import "reflect-metadata";
 import cors from 'cors'
 import { PersonResolver } from "./resolver/PersonResolver";
 import { RoomResolver } from "./resolver/RoomResolver";
+import { BedResolver } from "./resolver/BedResolver";
+import { RentResolver } from "./resolver/RentResolver";
 
 async function server_setup() {
   const app = express();
@@ -19,7 +21,7 @@ async function server_setup() {
   // create a  graphql server
   const apolloServer = new ApolloServer({
     schema: await buildSchema({
-      resolvers: [UserResolver,PersonResolver,RoomResolver],
+      resolvers: [UserResolver,PersonResolver,RoomResolver,BedResolver,RentResolver],
     }),
   });
 

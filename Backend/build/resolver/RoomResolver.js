@@ -31,11 +31,11 @@ __decorate([
     __metadata("design:type", String)
 ], RoomInput.prototype, "roomNumber", void 0);
 __decorate([
-    (0, type_graphql_1.Field)(() => String),
+    (0, type_graphql_1.Field)(() => String, { nullable: true }),
     __metadata("design:type", String)
 ], RoomInput.prototype, "floor", void 0);
 __decorate([
-    (0, type_graphql_1.Field)(),
+    (0, type_graphql_1.Field)(() => String),
     __metadata("design:type", String)
 ], RoomInput.prototype, "roomStatus", void 0);
 RoomInput = __decorate([
@@ -44,21 +44,50 @@ RoomInput = __decorate([
 let UpdateRoomInput = class UpdateRoomInput {
 };
 __decorate([
-    (0, type_graphql_1.Field)(),
+    (0, type_graphql_1.Field)(() => String),
     __metadata("design:type", String)
 ], UpdateRoomInput.prototype, "roomStatus", void 0);
 UpdateRoomInput = __decorate([
     (0, type_graphql_1.InputType)()
 ], UpdateRoomInput);
 let RoomResolver = class RoomResolver {
-    //CREATE ROOM
-    createRoom(input) {
+    getAllRooms() {
         return __awaiter(this, void 0, void 0, function* () {
-            const room = Room_1.Room.create(input).save();
+            const allRooms = yield Room_1.Room.find();
+            return allRooms;
+        });
+    }
+    getRoomById(id) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const room = yield Room_1.Room.findOne({
+                where: {
+                    id,
+                },
+            });
+            if (!room)
+                throw new Error("Room not found");
             return room;
         });
     }
-    //UPDATE ROOM
+    deleteRoom(id) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const room = yield Room_1.Room.findOne({
+                where: {
+                    id,
+                },
+            });
+            if (!room)
+                throw new Error("Room not found");
+            yield room.remove();
+            return "Room deleted successfully";
+        });
+    }
+    createRoom(input) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const room = yield Room_1.Room.create(input).save();
+            return room;
+        });
+    }
     updateRoom(id, input) {
         return __awaiter(this, void 0, void 0, function* () {
             const room = yield Room_1.Room.findOne({
@@ -68,32 +97,33 @@ let RoomResolver = class RoomResolver {
             });
             if (!room)
                 throw new Error("Room not found");
-            const updatedRoom = Object.assign(room, input).save();
-            return updatedRoom;
-        });
-    }
-    //GET ALL ROOM
-    getAllRooms() {
-        return __awaiter(this, void 0, void 0, function* () {
-            const allRooms = yield Room_1.Room.find();
-            return allRooms;
-        });
-    }
-    //GET ROOM BY ID
-    getRoomById(id) {
-        return __awaiter(this, void 0, void 0, function* () {
-            const room = yield Room_1.Room.findOne({
-                where: {
-                    id,
-                },
-            });
-            if (!room)
-                throw new Error("No room found");
+            Object.assign(room, input);
+            yield room.save();
             return room;
         });
     }
 };
 exports.RoomResolver = RoomResolver;
+__decorate([
+    (0, type_graphql_1.Query)(() => [Room_1.Room]),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", []),
+    __metadata("design:returntype", Promise)
+], RoomResolver.prototype, "getAllRooms", null);
+__decorate([
+    (0, type_graphql_1.Query)(() => Room_1.Room),
+    __param(0, (0, type_graphql_1.Arg)("id")),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [String]),
+    __metadata("design:returntype", Promise)
+], RoomResolver.prototype, "getRoomById", null);
+__decorate([
+    (0, type_graphql_1.Mutation)(() => String),
+    __param(0, (0, type_graphql_1.Arg)("id")),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [String]),
+    __metadata("design:returntype", Promise)
+], RoomResolver.prototype, "deleteRoom", null);
 __decorate([
     (0, type_graphql_1.Mutation)(() => Room_1.Room),
     __param(0, (0, type_graphql_1.Arg)("input")),
@@ -109,19 +139,6 @@ __decorate([
     __metadata("design:paramtypes", [String, UpdateRoomInput]),
     __metadata("design:returntype", Promise)
 ], RoomResolver.prototype, "updateRoom", null);
-__decorate([
-    (0, type_graphql_1.Query)(() => [Room_1.Room]),
-    __metadata("design:type", Function),
-    __metadata("design:paramtypes", []),
-    __metadata("design:returntype", Promise)
-], RoomResolver.prototype, "getAllRooms", null);
-__decorate([
-    (0, type_graphql_1.Query)(() => Room_1.Room),
-    __param(0, (0, type_graphql_1.Arg)("id")),
-    __metadata("design:type", Function),
-    __metadata("design:paramtypes", [String]),
-    __metadata("design:returntype", Promise)
-], RoomResolver.prototype, "getRoomById", null);
 exports.RoomResolver = RoomResolver = __decorate([
     (0, type_graphql_1.Resolver)()
 ], RoomResolver);

@@ -1,35 +1,61 @@
 import { Arg, Field, InputType, Mutation, Query, Resolver } from "type-graphql";
 import { Room } from "../entities/Room";
 
-
 @InputType()
 class RoomInput {
   @Field(() => String)
   roomNumber: string;
 
-  @Field(() => String)
-  floor: string;
+  @Field(() => String, { nullable: true })
+  floor: "1" | "2" | "3";
 
-  @Field()
+  @Field(() => String)
   roomStatus: "Available" | "Occupied";
 }
 
 @InputType()
 class UpdateRoomInput {
-  @Field()
+  @Field(() => String)
   roomStatus: "Available" | "Occupied";
 }
 
 @Resolver()
 export class RoomResolver {
-  //CREATE ROOM
-  @Mutation(() => Room)
-  async createRoom(@Arg("input") input: RoomInput): Promise<Room> {
-    const room = Room.create(input as any).save();
+  @Query(() => [Room])
+  async getAllRooms(): Promise<Room[]> {
+    const allRooms = await Room.find();
+    return allRooms;
+  }
+
+  @Query(() => Room)
+  async getRoomById(@Arg("id") id: string): Promise<Room> {
+    const room = await Room.findOne({
+      where: {
+        id,
+      },
+    });
+    if (!room) throw new Error("Room not found");
     return room;
   }
 
-  //UPDATE ROOM
+  @Mutation(() => String)
+  async deleteRoom(@Arg("id") id: string): Promise<string> {
+    const room = await Room.findOne({
+      where: {
+        id,
+      },
+    });
+    if (!room) throw new Error("Room not found");
+    await room.remove();
+    return "Room deleted successfully";
+  }
+
+  @Mutation(() => Room)
+  async createRoom(@Arg("input") input: RoomInput): Promise<Room> {
+    const room = await Room.create(input as any).save();
+    return room;
+  }
+
   @Mutation(() => Room)
   async updateRoom(
     @Arg("id") id: string,
@@ -41,26 +67,10 @@ export class RoomResolver {
       },
     });
     if (!room) throw new Error("Room not found");
-    const updatedRoom = Object.assign(room, input).save();
-    return updatedRoom;
-  }
 
-  //GET ALL ROOM
-  @Query(() => [Room])
-  async getAllRooms(): Promise<Room[]> {
-    const allRooms = await Room.find();
-    return allRooms;
-  }
+    Object.assign(room, input);
+    await room.save();
 
-  //GET ROOM BY ID
-  @Query(() => Room)
-  async getRoomById(@Arg("id") id: string): Promise<Room> {
-    const room = await Room.findOne({
-      where: {
-        id,
-      },
-    });
-    if (!room) throw new Error("No room found");
     return room;
   }
 }

@@ -28,7 +28,7 @@ export class Bed extends BaseEntity {
 
   @Field()
   @Column({ default: "Available" })
-  status: "Available" | "Occupied";
+  bedStatus: "Available" | "Occupied";
 
   @Field(() => String)
   @Column({

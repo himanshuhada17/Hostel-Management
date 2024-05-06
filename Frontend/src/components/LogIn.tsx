@@ -7,7 +7,7 @@ const LogIn = () => {
     <div className="flex justify-center items-center h-screen"
     style={{backgroundColor: "#f3f4f6"}}
     >
-      <div className="h-[600px] w-[900px] shadow-xl border-[1px] flex overflow-hidden rounded-xl bg-white">
+      <div className="h-[600px] w-[900px] shadow-xl border-[1px] flex overflow-hidden rounded-xl bg-white fixed">
         <div className="w-1/2 h-96 flex justify-center mt-6">
           <Tabs
             defaultActiveKey="1"

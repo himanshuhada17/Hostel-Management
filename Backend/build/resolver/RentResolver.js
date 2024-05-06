@@ -27,93 +27,133 @@ const Rent_1 = require("../entities/Rent");
 let RentInput = class RentInput {
 };
 __decorate([
-    (0, type_graphql_1.Field)(),
+    (0, type_graphql_1.Field)(() => String),
     __metadata("design:type", String)
 ], RentInput.prototype, "status", void 0);
 __decorate([
-    (0, type_graphql_1.Field)(),
+    (0, type_graphql_1.Field)(() => Date),
     __metadata("design:type", Date)
 ], RentInput.prototype, "dueDate", void 0);
 __decorate([
     (0, type_graphql_1.Field)(() => String),
     __metadata("design:type", String)
-], RentInput.prototype, "amount", void 0);
+], RentInput.prototype, "personId", void 0);
 __decorate([
     (0, type_graphql_1.Field)(() => String),
     __metadata("design:type", String)
-], RentInput.prototype, "personId", void 0);
+], RentInput.prototype, "bedId", void 0);
+__decorate([
+    (0, type_graphql_1.Field)(() => String),
+    __metadata("design:type", String)
+], RentInput.prototype, "roomId", void 0);
 RentInput = __decorate([
     (0, type_graphql_1.InputType)()
 ], RentInput);
+let UpdateRentInput = class UpdateRentInput {
+};
+__decorate([
+    (0, type_graphql_1.Field)(() => String, { nullable: true }),
+    __metadata("design:type", String)
+], UpdateRentInput.prototype, "status", void 0);
+__decorate([
+    (0, type_graphql_1.Field)(() => Date, { nullable: true }),
+    __metadata("design:type", Date)
+], UpdateRentInput.prototype, "dueDate", void 0);
+UpdateRentInput = __decorate([
+    (0, type_graphql_1.InputType)()
+], UpdateRentInput);
 let RentResolver = class RentResolver {
-    createRent(data) {
+    getAllRents() {
         return __awaiter(this, void 0, void 0, function* () {
-            const rent = Rent_1.Rent.create(data).save();
+            const allRents = yield Rent_1.Rent.find({
+                relations: ["room", "bed", "person"],
+            });
+            return allRents;
+        });
+    }
+    getRentById(id) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const rent = yield Rent_1.Rent.findOne({
+                where: {
+                    id,
+                },
+                relations: ["room", "bed", "person"],
+            });
+            if (!rent)
+                throw new Error("Rent not found");
             return rent;
         });
     }
-    getAllRents() {
+    deleteRent(id) {
         return __awaiter(this, void 0, void 0, function* () {
-            return yield Rent_1.Rent.find({
-                relations: ['person']
+            const rent = yield Rent_1.Rent.findOne({
+                where: {
+                    id,
+                },
             });
+            if (!rent)
+                throw new Error("Rent not found");
+            yield rent.remove();
+            return "Rent deleted successfully";
+        });
+    }
+    createRent(input) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const rent = yield Rent_1.Rent.create(input).save();
+            return rent;
+        });
+    }
+    updateRent(id, input) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const rent = yield Rent_1.Rent.findOne({
+                where: {
+                    id,
+                },
+            });
+            if (!rent)
+                throw new Error("Rent not found");
+            Object.assign(rent, input);
+            yield rent.save();
+            return rent;
         });
     }
 };
 exports.RentResolver = RentResolver;
-__decorate([
-    (0, type_graphql_1.Mutation)(() => Rent_1.Rent),
-    __param(0, (0, type_graphql_1.Arg)("data")),
-    __metadata("design:type", Function),
-    __metadata("design:paramtypes", [RentInput]),
-    __metadata("design:returntype", Promise)
-], RentResolver.prototype, "createRent", null);
 __decorate([
     (0, type_graphql_1.Query)(() => [Rent_1.Rent]),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", []),
     __metadata("design:returntype", Promise)
 ], RentResolver.prototype, "getAllRents", null);
+__decorate([
+    (0, type_graphql_1.Query)(() => Rent_1.Rent),
+    __param(0, (0, type_graphql_1.Arg)("id")),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [String]),
+    __metadata("design:returntype", Promise)
+], RentResolver.prototype, "getRentById", null);
+__decorate([
+    (0, type_graphql_1.Mutation)(() => String),
+    __param(0, (0, type_graphql_1.Arg)("id")),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [String]),
+    __metadata("design:returntype", Promise)
+], RentResolver.prototype, "deleteRent", null);
+__decorate([
+    (0, type_graphql_1.Mutation)(() => Rent_1.Rent),
+    __param(0, (0, type_graphql_1.Arg)("input")),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [RentInput]),
+    __metadata("design:returntype", Promise)
+], RentResolver.prototype, "createRent", null);
+__decorate([
+    (0, type_graphql_1.Mutation)(() => Rent_1.Rent),
+    __param(0, (0, type_graphql_1.Arg)("id")),
+    __param(1, (0, type_graphql_1.Arg)("input")),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [String, UpdateRentInput]),
+    __metadata("design:returntype", Promise)
+], RentResolver.prototype, "updateRent", null);
 exports.RentResolver = RentResolver = __decorate([
     (0, type_graphql_1.Resolver)()
 ], RentResolver);
-// import { Arg, Field, InputType, Mutation, Query, Resolver, Root, FieldResolver } from "type-graphql";
-// import { Rent } from "../entities/Rent";
-// import { Person } from "../entities/Person"; // Import the Person entity
-// @InputType()
-// class RentInput {
-//     @Field()
-//     status: 'Paid' | 'Unpaid'
-//     @Field()
-//     dueDate: Date
-//     @Field(() => String)
-//     amount: string
-//     @Field(() => String)
-//     personId?: string
-// }
-// @Resolver(Rent)
-// export class RentResolver {
-//     @Mutation(() => Rent)
-//     async createRent(@Arg("data") data: RentInput): Promise<Rent>
-//     {
-//         const rent = Rent.create(data as any).save();
-//         return rent;
-//     }
-//     @Query(() => Rent,)
-//     async getRentById(@Arg("id") id : string): Promise<Rent | null>
-//     {
-//         const rent = await Rent.findOne({
-//             where: {
-//                 personId: id
-//             }
-//         })
-//         console.log("rent---->>",rent?.person)
-//         return rent
-//     }
-//     @Query(() => [Rent])
-//     async getAllRents(): Promise<Rent[]>
-//     {
-//         return await Rent.find({
-//         });
-//     }
-// }
