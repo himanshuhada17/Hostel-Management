@@ -5,8 +5,8 @@ import Dashboard from "@/components/dashboard";
 export default function Home() {
   return (
     <>
-    <Rooms/>
-      {/* <Dashboard /> */}
+    {/* <Rooms/> */}
+      <Dashboard />
       {/* <LogIn /> */}
     </>
   );
