@@ -22,12 +22,12 @@ const typeorm_1 = require("typeorm");
 const entity_modal_1 = require("./entity_modal"); // Import your User entity
 function db_connection() {
     const connection = (0, typeorm_1.createConnection)({
-        type: "mysql",
-        host: "localhost",
-        port: 3306,
-        username: "root",
-        password: "21112111",
-        database: "hostel_db",
+        type: "postgres",
+        host: "aws-0-ap-south-1.pooler.supabase.com",
+        port: 5432,
+        username: "postgres.psepgwdturmkfolikpxy",
+        password: "Bharat@1632@",
+        database: "postgres",
         entities: entity_modal_1.entities,
         logging: false,
         synchronize: true,
