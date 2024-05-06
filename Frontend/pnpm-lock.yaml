@@ -11,6 +11,9 @@ dependencies:
   '@apollo/client':
     specifier: ^3.9.5
     version: 3.9.11(@types/react@18.2.79)(graphql@16.8.1)(react-dom@18.2.0)(react@18.2.0)
+  '@apollo/react-hooks':
+    specifier: ^4.0.0
+    version: 4.0.0(@types/react@18.2.79)(graphql@16.8.1)(react-dom@18.2.0)(react@18.2.0)
   '@emotion/react':
     specifier: ^11.11.3
     version: 11.11.4(@types/react@18.2.79)(react@18.2.0)
@@ -176,6 +179,45 @@ packages:
       throttle-debounce: 5.0.0
     dev: false
 
+  /@apollo/client@3.10.2(@types/react@18.2.79)(graphql@16.8.1)(react-dom@18.2.0)(react@18.2.0):
+    resolution: {integrity: sha512-J4e2RQN4DgMthCqBtBOXOawYTWmdJprAWqv8rdYLmeW4/Pnrlrl4Hvb/zvENlitDAiRUU33Dc/3OJqIMEJAxNw==}
+    peerDependencies:
+      graphql: ^15.0.0 || ^16.0.0
+      graphql-ws: ^5.5.5
+      react: ^16.8.0 || ^17.0.0 || ^18.0.0
+      react-dom: ^16.8.0 || ^17.0.0 || ^18.0.0
+      subscriptions-transport-ws: ^0.9.0 || ^0.11.0
+    peerDependenciesMeta:
+      graphql-ws:
+        optional: true
+      react:
+        optional: true
+      react-dom:
+        optional: true
+      subscriptions-transport-ws:
+        optional: true
+    dependencies:
+      '@graphql-typed-document-node/core': 3.2.0(graphql@16.8.1)
+      '@wry/caches': 1.0.1
+      '@wry/equality': 0.5.7
+      '@wry/trie': 0.5.0
+      graphql: 16.8.1
+      graphql-tag: 2.12.6(graphql@16.8.1)
+      hoist-non-react-statics: 3.3.2
+      optimism: 0.18.0
+      prop-types: 15.8.1
+      react: 18.2.0
+      react-dom: 18.2.0(react@18.2.0)
+      rehackt: 0.1.0(@types/react@18.2.79)(react@18.2.0)
+      response-iterator: 0.2.6
+      symbol-observable: 4.0.0
+      ts-invariant: 0.10.3
+      tslib: 2.6.2
+      zen-observable-ts: 1.2.5
+    transitivePeerDependencies:
+      - '@types/react'
+    dev: false
+
   /@apollo/client@3.9.11(@types/react@18.2.79)(graphql@16.8.1)(react-dom@18.2.0)(react@18.2.0):
     resolution: {integrity: sha512-H7e9m7cRcFO93tokwzqrsbnfKorkpV24xU30hFH5u2g6B+c1DMo/ouyF/YrBPdrTzqxQCjTUmds/FLmJ7626GA==}
     peerDependencies:
@@ -213,6 +255,19 @@ packages:
       zen-observable-ts: 1.2.5
     transitivePeerDependencies:
       - '@types/react'
+    dev: false
+
+  /@apollo/react-hooks@4.0.0(@types/react@18.2.79)(graphql@16.8.1)(react-dom@18.2.0)(react@18.2.0):
+    resolution: {integrity: sha512-fCu0cbne3gbUl0QbA8X4L33iuuFVQbC5Jo2MIKRK8CyawR6PoxDpFdFA1kc6033ODZuZZ9Eo4RdeJFlFIIYcLA==}
+    dependencies:
+      '@apollo/client': 3.10.2(@types/react@18.2.79)(graphql@16.8.1)(react-dom@18.2.0)(react@18.2.0)
+    transitivePeerDependencies:
+      - '@types/react'
+      - graphql
+      - graphql-ws
+      - react
+      - react-dom
+      - subscriptions-transport-ws
     dev: false
 
   /@ardatan/relay-compiler@12.0.0(graphql@16.8.1):
@@ -6213,6 +6268,21 @@ packages:
 
   /rehackt@0.0.6(@types/react@18.2.79)(react@18.2.0):
     resolution: {integrity: sha512-l3WEzkt4ntlEc/IB3/mF6SRgNHA6zfQR7BlGOgBTOmx7IJJXojDASav+NsgXHFjHn+6RmwqsGPFgZpabWpeOdw==}
+    peerDependencies:
+      '@types/react': '*'
+      react: '*'
+    peerDependenciesMeta:
+      '@types/react':
+        optional: true
+      react:
+        optional: true
+    dependencies:
+      '@types/react': 18.2.79
+      react: 18.2.0
+    dev: false
+
+  /rehackt@0.1.0(@types/react@18.2.79)(react@18.2.0):
+    resolution: {integrity: sha512-7kRDOuLHB87D/JESKxQoRwv4DzbIdwkAGQ7p6QKGdVlY1IZheUnVhlk/4UZlNUVxdAXpyxikE3URsG067ybVzw==}
     peerDependencies:
       '@types/react': '*'
       react: '*'
