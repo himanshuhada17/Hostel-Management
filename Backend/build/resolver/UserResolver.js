@@ -101,6 +101,22 @@ let UserResolver = class UserResolver {
             return user;
         });
     }
+    loginUser(email, password) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const user = yield User_1.User.findOne({
+                where: {
+                    email,
+                    password
+                }
+            });
+            if (user) {
+                return "User Login Successfully";
+            }
+            else {
+                return 'User Not Found';
+            }
+        });
+    }
     //update a user
     updateUser(id, input) {
         return __awaiter(this, void 0, void 0, function* () {
@@ -140,6 +156,14 @@ __decorate([
     __metadata("design:paramtypes", [UserInput]),
     __metadata("design:returntype", Promise)
 ], UserResolver.prototype, "createUser", null);
+__decorate([
+    (0, type_graphql_1.Query)(() => String),
+    __param(0, (0, type_graphql_1.Arg)("email")),
+    __param(1, (0, type_graphql_1.Arg)("password")),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [String, String]),
+    __metadata("design:returntype", Promise)
+], UserResolver.prototype, "loginUser", null);
 __decorate([
     (0, type_graphql_1.Mutation)(() => User_1.User),
     __param(0, (0, type_graphql_1.Arg)("id")),

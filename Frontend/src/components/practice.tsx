@@ -13,7 +13,7 @@
 //   const [editMode, setEditMode] = useState();
 //   const [selectedUser,setSelecteduser] = useState(null)
 //   const [form] = Form.useForm();
-//   const [createUser, { loading: createLoading }] = useCreateUserMutation();
+  // const [createUser, { loading: createLoading }] = useCreateUserMutation();
 //   const [deleteUser, { loading: deleteUserLoading }] = useDeleteUserMutation();
 //   //   const [data,] = useGetAllUsersQuery()
 //   const { data, refetch: allUsersRefetch } = useGetAllUsersQuery();

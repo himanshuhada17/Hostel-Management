@@ -6,7 +6,7 @@ export default function Home() {
   return (
     <>
     {/* <Rooms/> */}
-      <Dashboard />
+      <LogIn />
       {/* <LogIn /> */}
     </>
   );

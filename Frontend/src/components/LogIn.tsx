@@ -1,8 +1,16 @@
-import { Button, Checkbox, Form, Input, Tabs, TabsProps } from "antd";
-import React from "react";
+import { Button, Checkbox, Form, Input, Tabs, TabsProps, message } from "antd";
+import React, { useRef } from "react";
 import  "../../public/2303.w015.n003.1224A.p30.1224-removebg-preview.png"
+import { useCreateUserMutation, useLoginUserLazyQuery } from "@/generated/graphql";
+import { useNavigate } from "react-router-dom";
+import { useRouter } from "next/navigation";
 
 const LogIn = () => {
+  const [login,{loading:loginLoading}]=useLoginUserLazyQuery()
+  const [createUser,{loading:createUserLoading}]=useCreateUserMutation()
+  const navigate = useRouter()
+  const [formRef] =Form.useForm()
+  const detailsRef= useRef(formRef)
   return (
     <div className="flex justify-center items-center h-screen"
     style={{backgroundColor: "#f3f4f6"}}
@@ -17,8 +25,29 @@ const LogIn = () => {
                 key: "1",
                 children: (
                   <>
-                    <Form layout="vertical" className="mt-2">
+                    <Form form={formRef} layout="vertical" className="mt-2"
+                    onFinish={async(values)=>{
+                      console.log('hrererrerer')
+                      if(!values.email){
+                        return alert('Email is Required')
+                      }
+                      if(!values.password){
+                        return alert("password is required")
+                      }
+                      const {data}=await login({
+                        variables:{
+                          email:values.email,
+                          password:values.password
+                        }
+                      })
+                      if(data?.loginUser.includes('User Login Successfully')){
+                       navigate.push('/dashboard') 
+                      }
+                    }}
+                    >
                       <Form.Item
+                      name={'email'}
+                      id="email"
                         className="w-full"
                         rules={[
                           {
@@ -35,6 +64,8 @@ const LogIn = () => {
                         />
                       </Form.Item>
                       <Form.Item
+                      name={'password'}
+                      id="password"
                         rules={[
                           {
                             required: true,
@@ -52,9 +83,29 @@ const LogIn = () => {
                     <div className="flex items-center justify-between">
                       <Checkbox>Remember me</Checkbox>
                       <Button
+                      loading={loginLoading}
                         className="bg-blue-500 rounded-xl w-[110px]"
                         type="primary"
                         size={"large"}
+                        onClick={async(val)=>{
+                          const values=formRef.getFieldsValue()
+                          if(!values.email){
+                            return alert('Email is Required')
+                          }
+                          if(!values.password){
+                            return alert("password is required")
+                          }
+                          const {data}=await login({
+                            variables:{
+                              email:values.email,
+                              password:values.password
+                            }
+                          })
+                          if(data?.loginUser.includes('User Login Successfully')){
+                           navigate.push('/dashboard') 
+                          }
+                        }}
+                        htmlType="submit"
                       >
                         Login
                       </Button>
@@ -67,29 +118,42 @@ const LogIn = () => {
                 key: "2",
                 children: (
                   <>
-                    <Form layout="vertical" className="mt-2">
-                      <Form.Item>
+                    <Form ref={detailsRef} layout="vertical" className="mt-2"
+                    >
+                      <Form.Item
+                      name={'name'}
+                      id="name"
+                      >
                         <Input
                           type="text"
                           placeholder="Name"
                           className="p-3 rounded-xl"
                         />
                       </Form.Item>
-                      <Form.Item>
+                      <Form.Item
+                        name={'email'}
+                        id="email"
+                      >
                         <Input
                           type="text"
                           placeholder="Email"
                           className="p-3 rounded-xl"
                         />
                       </Form.Item>
-                      <Form.Item>
+                      <Form.Item
+                      
+                      name={'userName'}
+                      id="userName">
                         <Input
                           type="text"
                           placeholder="Username"
                           className="p-3 rounded-xl"
                         />
                       </Form.Item>
-                      <Form.Item>
+                      <Form.Item
+                        name={'password'}
+                        id="password"
+                      >
                         <Input
                           type="password"
                           placeholder="Password"
@@ -99,6 +163,22 @@ const LogIn = () => {
                     </Form>
                     <div className="flex justify-end">
                       <Button
+                      onClick={async()=>{
+                        const values=detailsRef.current.getFieldsValue()
+                        console.log({values})
+                        await createUser({
+                          variables:{
+                            input:{
+                              name:values.name,
+                              email:values.email,
+                              password:values.password,
+                              username:values.userName
+                            }
+                          }
+                        })
+                        navigate.push('/dashboard')
+                      }}
+                      loading={createUserLoading}
                         className="bg-blue-500 rounded-xl w-[110px]"
                         type="primary"
                         size={"large"}

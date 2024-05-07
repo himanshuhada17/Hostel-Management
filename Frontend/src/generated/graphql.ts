@@ -22,28 +22,52 @@ export type Bed = {
   __typename?: 'Bed';
   amount: Scalars['String']['output'];
   bedNumber: Scalars['String']['output'];
+  bedStatus: Scalars['String']['output'];
   id: Scalars['ID']['output'];
   person: Person;
   rents: Array<Rent>;
   room: Room;
   roomId: Scalars['String']['output'];
-  status: Scalars['String']['output'];
+};
+
+export type BedInput = {
+  amount: Scalars['String']['input'];
+  bedNumber: Scalars['String']['input'];
+  bedStatus: Scalars['String']['input'];
+  roomId: Scalars['String']['input'];
 };
 
 export type Mutation = {
   __typename?: 'Mutation';
+  createBed: Bed;
   createPerson: Person;
+  createRent: Rent;
   createRoom: Room;
   createUser: User;
+  deleteBed: Scalars['String']['output'];
+  deleteRent: Scalars['String']['output'];
+  deleteRoom: Scalars['String']['output'];
   deleteUser: Scalars['String']['output'];
+  updateBed: Bed;
   updatePerson: Person;
+  updateRent: Rent;
   updateRoom: Room;
   updateUser: User;
 };
 
 
+export type MutationCreateBedArgs = {
+  input: BedInput;
+};
+
+
 export type MutationCreatePersonArgs = {
   input: PersonInput;
+};
+
+
+export type MutationCreateRentArgs = {
+  input: RentInput;
 };
 
 
@@ -57,14 +81,41 @@ export type MutationCreateUserArgs = {
 };
 
 
+export type MutationDeleteBedArgs = {
+  id: Scalars['String']['input'];
+};
+
+
+export type MutationDeleteRentArgs = {
+  id: Scalars['String']['input'];
+};
+
+
+export type MutationDeleteRoomArgs = {
+  id: Scalars['String']['input'];
+};
+
+
 export type MutationDeleteUserArgs = {
   id: Scalars['String']['input'];
+};
+
+
+export type MutationUpdateBedArgs = {
+  id: Scalars['String']['input'];
+  input: UpdateBedInput;
 };
 
 
 export type MutationUpdatePersonArgs = {
   id: Scalars['String']['input'];
   input: UpdatePersonInput;
+};
+
+
+export type MutationUpdateRentArgs = {
+  id: Scalars['String']['input'];
+  input: UpdateRentInput;
 };
 
 
@@ -108,16 +159,31 @@ export type PersonInput = {
 
 export type Query = {
   __typename?: 'Query';
+  getAllBeds: Array<Bed>;
   getAllPersons: Array<Person>;
+  getAllRents: Array<Rent>;
   getAllRooms: Array<Room>;
   getAllUsers: Array<User>;
+  getBedById: Bed;
   getPersonById: Person;
+  getRentById: Rent;
   getRoomById: Room;
   getUserById: User;
+  loginUser: Scalars['String']['output'];
+};
+
+
+export type QueryGetBedByIdArgs = {
+  id: Scalars['String']['input'];
 };
 
 
 export type QueryGetPersonByIdArgs = {
+  id: Scalars['String']['input'];
+};
+
+
+export type QueryGetRentByIdArgs = {
   id: Scalars['String']['input'];
 };
 
@@ -129,6 +195,12 @@ export type QueryGetRoomByIdArgs = {
 
 export type QueryGetUserByIdArgs = {
   id: Scalars['String']['input'];
+};
+
+
+export type QueryLoginUserArgs = {
+  email: Scalars['String']['input'];
+  password: Scalars['String']['input'];
 };
 
 export type Rent = {
@@ -146,6 +218,14 @@ export type Rent = {
   updatedAt: Scalars['DateTimeISO']['output'];
 };
 
+export type RentInput = {
+  bedId: Scalars['String']['input'];
+  dueDate: Scalars['DateTimeISO']['input'];
+  personId: Scalars['String']['input'];
+  roomId: Scalars['String']['input'];
+  status: Scalars['String']['input'];
+};
+
 export type Room = {
   __typename?: 'Room';
   beds: Array<Bed>;
@@ -158,9 +238,15 @@ export type Room = {
 };
 
 export type RoomInput = {
-  floor: Scalars['String']['input'];
+  floor?: InputMaybe<Scalars['String']['input']>;
   roomNumber: Scalars['String']['input'];
   roomStatus: Scalars['String']['input'];
+};
+
+export type UpdateBedInput = {
+  amount?: InputMaybe<Scalars['String']['input']>;
+  bedStatus: Scalars['String']['input'];
+  roomId?: InputMaybe<Scalars['String']['input']>;
 };
 
 export type UpdatePersonInput = {
@@ -170,6 +256,11 @@ export type UpdatePersonInput = {
   image?: InputMaybe<Scalars['String']['input']>;
   name: Scalars['String']['input'];
   phone?: InputMaybe<Scalars['String']['input']>;
+};
+
+export type UpdateRentInput = {
+  dueDate?: InputMaybe<Scalars['DateTimeISO']['input']>;
+  status?: InputMaybe<Scalars['String']['input']>;
 };
 
 export type UpdateRoomInput = {
@@ -216,6 +307,14 @@ export type GetAllUsersQueryVariables = Exact<{ [key: string]: never; }>;
 
 
 export type GetAllUsersQuery = { __typename?: 'Query', getAllUsers: Array<{ __typename?: 'User', email: string, name: string, password: string, username: string, id: string }> };
+
+export type LoginUserQueryVariables = Exact<{
+  password: Scalars['String']['input'];
+  email: Scalars['String']['input'];
+}>;
+
+
+export type LoginUserQuery = { __typename?: 'Query', loginUser: string };
 
 
 export const CreateUserDocument = gql`
@@ -329,3 +428,42 @@ export type GetAllUsersQueryHookResult = ReturnType<typeof useGetAllUsersQuery>;
 export type GetAllUsersLazyQueryHookResult = ReturnType<typeof useGetAllUsersLazyQuery>;
 export type GetAllUsersSuspenseQueryHookResult = ReturnType<typeof useGetAllUsersSuspenseQuery>;
 export type GetAllUsersQueryResult = Apollo.QueryResult<GetAllUsersQuery, GetAllUsersQueryVariables>;
+export const LoginUserDocument = gql`
+    query loginUser($password: String!, $email: String!) {
+  loginUser(password: $password, email: $email)
+}
+    `;
+
+/**
+ * __useLoginUserQuery__
+ *
+ * To run a query within a React component, call `useLoginUserQuery` and pass it any options that fit your needs.
+ * When your component renders, `useLoginUserQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useLoginUserQuery({
+ *   variables: {
+ *      password: // value for 'password'
+ *      email: // value for 'email'
+ *   },
+ * });
+ */
+export function useLoginUserQuery(baseOptions: Apollo.QueryHookOptions<LoginUserQuery, LoginUserQueryVariables> & ({ variables: LoginUserQueryVariables; skip?: boolean; } | { skip: boolean; }) ) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<LoginUserQuery, LoginUserQueryVariables>(LoginUserDocument, options);
+      }
+export function useLoginUserLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<LoginUserQuery, LoginUserQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<LoginUserQuery, LoginUserQueryVariables>(LoginUserDocument, options);
+        }
+export function useLoginUserSuspenseQuery(baseOptions?: Apollo.SuspenseQueryHookOptions<LoginUserQuery, LoginUserQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useSuspenseQuery<LoginUserQuery, LoginUserQueryVariables>(LoginUserDocument, options);
+        }
+export type LoginUserQueryHookResult = ReturnType<typeof useLoginUserQuery>;
+export type LoginUserLazyQueryHookResult = ReturnType<typeof useLoginUserLazyQuery>;
+export type LoginUserSuspenseQueryHookResult = ReturnType<typeof useLoginUserSuspenseQuery>;
+export type LoginUserQueryResult = Apollo.QueryResult<LoginUserQuery, LoginUserQueryVariables>;
