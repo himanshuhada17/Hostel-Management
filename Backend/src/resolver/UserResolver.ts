@@ -65,6 +65,22 @@ export class UserResolver {
     const user = await User.create(input as any).save();
     return user;
   }
+  @Query(()=>String)
+  async loginUser(  @Arg("email") email: string,
+  @Arg("password") password: string):Promise<string> {
+
+    const user=await User.findOne({
+      where:{
+        email,
+        password
+      }
+    })
+    if(user){
+      return "User Login Successfully"
+    }else{
+      return 'User Not Found'
+    }
+  }
 
   //update a user
   @Mutation(() => User)
@@ -77,4 +93,5 @@ export class UserResolver {
     const updateUser = Object.assign(user, input).save();
     return updateUser;
   }
+ 
 }
