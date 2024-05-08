@@ -1,14 +1,42 @@
-import { UserOutlined } from "@ant-design/icons";
-import { Card, Col, Row } from "antd";
-import React from "react";
-import Layout from "./Layout";
+import { Avatar, Breadcrumb, Card, Col, Row, Typography } from 'antd'
+import Layout from './Layout'
+import { UserOutlined } from '@ant-design/icons'
 
 const Dashboard = () => {
+  const options = {
+    chart: {
+      id: 'basic-line'
+    },
+    xaxis: {
+      categories: [
+        'Jan',
+        'Feb',
+        'Mar',
+        'Apr',
+        'May',
+        'Jun',
+        'Jul',
+        'Aug',
+        'Sep'
+      ]
+    }
+  }
+
+  const series = [
+    {
+      name: 'series-1',
+      data: [30, 40, 35, 50, 49, 60, 70, 91, 125]
+    }
+  ]
   return (
     <Layout>
-      <Row>
+      <Breadcrumb style={{ margin: '10px 0' }}>
+        <Breadcrumb.Item>Home</Breadcrumb.Item>
+        <Breadcrumb.Item>dashboard</Breadcrumb.Item>
+      </Breadcrumb>
+      {/* <Row>
         <Col span={3}></Col>
-        {/* <div>start here</div> */}
+       
         <Col span={21} className="p-6">
           <Row gutter={14}>
             <Col span={10}>
@@ -80,9 +108,122 @@ const Dashboard = () => {
             </Col>
           </Row>
         </Col>
+      </Row> */}
+      <Row gutter={20}>
+        <Col span={6}>
+          <Card
+            style={{
+              padding: 0
+            }}
+            styles={{
+              body: {
+                padding: 10
+              }
+            }}
+          >
+            <div className="flex justify-between items-center">
+              <div className="flex flex-col">
+                <Typography.Text className="text-lg font-bold">
+                  Total Student
+                </Typography.Text>
+                <Typography.Text
+                  type="secondary"
+                  className="text-base font-mono"
+                >
+                  101
+                </Typography.Text>
+              </div>
+              <Avatar shape="square" size={64} icon={<UserOutlined />} />
+            </div>
+          </Card>
+        </Col>
+        <Col span={6}>
+          <Card
+            style={{
+              padding: 0
+            }}
+            styles={{
+              body: {
+                padding: 10
+              }
+            }}
+          >
+            <div className="flex justify-between items-center">
+              <div className="flex flex-col">
+                <Typography.Text className="text-lg font-bold">
+                  Total Student
+                </Typography.Text>
+                <Typography.Text
+                  type="secondary"
+                  className="text-base font-mono"
+                >
+                  101
+                </Typography.Text>
+              </div>
+              <Avatar shape="square" size={64} icon={<UserOutlined />} />
+            </div>
+          </Card>
+        </Col>
+        <Col span={6}>
+          <Card
+            style={{
+              padding: 0
+            }}
+            styles={{
+              body: {
+                padding: 10
+              }
+            }}
+          >
+            <div className="flex justify-between items-center">
+              <div className="flex flex-col">
+                <Typography.Text className="text-lg font-bold">
+                  Booked Rooms
+                </Typography.Text>
+                <Typography.Text
+                  type="secondary"
+                  className="text-base font-mono"
+                >
+                  101
+                </Typography.Text>
+              </div>
+              <Avatar shape="square" size={64} icon={<UserOutlined />} />
+            </div>
+          </Card>
+        </Col>
+        <Col span={6}>
+          <Card
+            style={{
+              padding: 0
+            }}
+            styles={{
+              body: {
+                padding: 10
+              }
+            }}
+          >
+            <div className="flex justify-between items-center">
+              <div className="flex flex-col">
+                <Typography.Text className="text-lg font-bold">
+                  Total Rooms
+                </Typography.Text>
+                <Typography.Text
+                  type="secondary"
+                  className="text-base font-mono"
+                >
+                  101
+                </Typography.Text>
+              </div>
+              <Avatar shape="square" size={64} icon={<UserOutlined />} />
+            </div>
+          </Card>
+        </Col>
+      </Row>
+      <Row>
+        <Col></Col>
       </Row>
     </Layout>
-  );
-};
+  )
+}
 
-export default Dashboard;
+export default Dashboard

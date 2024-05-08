@@ -1,65 +1,55 @@
 import {
-  Menu,
-  MenuProps,
-  Row,
-  Col,
-  Input,
-  Avatar,
-  Switch,
-} from "antd";
-import React, { useState } from "react";
-import {
   BlockOutlined,
   HomeOutlined,
   MoneyCollectOutlined,
   SettingOutlined,
-  SettingTwoTone,
-  UserOutlined,
-} from "@ant-design/icons";
-
+  UserOutlined
+} from '@ant-design/icons'
+import { Avatar, Col, Input, Menu, MenuProps, Row, Switch } from 'antd'
+import React, { useState } from 'react'
 
 const Navbar: React.FC = () => {
   //states
-  const [current, setCurrent] = useState("dashboard");
+  const [current, setCurrent] = useState('dashboard')
 
-  const items: MenuProps["items"] = [
+  const items: MenuProps['items'] = [
     {
-      label: "Dashboard",
-      key: "dashboard",
-      icon: <BlockOutlined />,
+      label: 'Dashboard',
+      key: 'dashboard',
+      icon: <BlockOutlined />
     },
     {
-      label: "Rooms",
-      key: "room",
-      icon: <HomeOutlined />,
+      label: 'Rooms',
+      key: 'room',
+      icon: <HomeOutlined />
     },
     {
-      label: "Beds",
-      key: "bed",
-      icon: <UserOutlined />,
+      label: 'Beds',
+      key: 'bed',
+      icon: <UserOutlined />
     },
     {
-      label: "Rents",
-      key: "rent",
-      icon: <MoneyCollectOutlined />,
+      label: 'Rents',
+      key: 'rent',
+      icon: <MoneyCollectOutlined />
     },
     {
-      label: "Tenants",
-      key: "tenant",
-      icon: <UserOutlined />,
+      label: 'Tenants',
+      key: 'tenant',
+      icon: <UserOutlined />
     },
     {
-      label: "Settings",
-      key: "setting",
-      icon: <SettingOutlined />,
-    },
-  ];
+      label: 'Settings',
+      key: 'setting',
+      icon: <SettingOutlined />
+    }
+  ]
   return (
     <>
       <Row>
         <Col span={3}>
           <Menu
-          className="h-screen p-2 fixed w-[181px]"  
+            className="h-screen p-2 fixed w-[181px]"
             // style={{
             //   width: "180",
             //   height: "100vh",
@@ -87,9 +77,13 @@ const Navbar: React.FC = () => {
               />
             </div>
             <div className="mr-4">
-              <Switch className="mr-3 bg-slate-400" checkedChildren="LIGHT" unCheckedChildren="DARK" />
+              <Switch
+                className="mr-3 bg-slate-400"
+                checkedChildren="LIGHT"
+                unCheckedChildren="DARK"
+              />
               <Avatar
-                style={{ backgroundColor: "orange", verticalAlign: "middle" }}
+                style={{ backgroundColor: 'orange', verticalAlign: 'middle' }}
                 size="large"
               >
                 H
@@ -99,7 +93,7 @@ const Navbar: React.FC = () => {
         </Col>
       </Row>
     </>
-  );
-};
+  )
+}
 
-export default Navbar;
+export default Navbar

@@ -22,28 +22,52 @@ export type Bed = {
   __typename?: 'Bed';
   amount: Scalars['String']['output'];
   bedNumber: Scalars['String']['output'];
+  bedStatus: Scalars['String']['output'];
   id: Scalars['ID']['output'];
   person: Person;
   rents: Array<Rent>;
   room: Room;
   roomId: Scalars['String']['output'];
-  status: Scalars['String']['output'];
+};
+
+export type BedInput = {
+  amount: Scalars['String']['input'];
+  bedNumber: Scalars['String']['input'];
+  bedStatus: Scalars['String']['input'];
+  roomId: Scalars['String']['input'];
 };
 
 export type Mutation = {
   __typename?: 'Mutation';
+  createBed: Bed;
   createPerson: Person;
+  createRent: Rent;
   createRoom: Room;
   createUser: User;
+  deleteBed: Scalars['String']['output'];
+  deleteRent: Scalars['String']['output'];
+  deleteRoom: Scalars['String']['output'];
   deleteUser: Scalars['String']['output'];
+  updateBed: Bed;
   updatePerson: Person;
+  updateRent: Rent;
   updateRoom: Room;
   updateUser: User;
 };
 
 
+export type MutationCreateBedArgs = {
+  input: BedInput;
+};
+
+
 export type MutationCreatePersonArgs = {
   input: PersonInput;
+};
+
+
+export type MutationCreateRentArgs = {
+  input: RentInput;
 };
 
 
@@ -57,14 +81,41 @@ export type MutationCreateUserArgs = {
 };
 
 
+export type MutationDeleteBedArgs = {
+  id: Scalars['String']['input'];
+};
+
+
+export type MutationDeleteRentArgs = {
+  id: Scalars['String']['input'];
+};
+
+
+export type MutationDeleteRoomArgs = {
+  id: Scalars['String']['input'];
+};
+
+
 export type MutationDeleteUserArgs = {
   id: Scalars['String']['input'];
+};
+
+
+export type MutationUpdateBedArgs = {
+  id: Scalars['String']['input'];
+  input: UpdateBedInput;
 };
 
 
 export type MutationUpdatePersonArgs = {
   id: Scalars['String']['input'];
   input: UpdatePersonInput;
+};
+
+
+export type MutationUpdateRentArgs = {
+  id: Scalars['String']['input'];
+  input: UpdateRentInput;
 };
 
 
@@ -108,16 +159,30 @@ export type PersonInput = {
 
 export type Query = {
   __typename?: 'Query';
+  getAllBeds: Array<Bed>;
   getAllPersons: Array<Person>;
+  getAllRents: Array<Rent>;
   getAllRooms: Array<Room>;
   getAllUsers: Array<User>;
+  getBedById: Bed;
   getPersonById: Person;
+  getRentById: Rent;
   getRoomById: Room;
   getUserById: User;
 };
 
 
+export type QueryGetBedByIdArgs = {
+  id: Scalars['String']['input'];
+};
+
+
 export type QueryGetPersonByIdArgs = {
+  id: Scalars['String']['input'];
+};
+
+
+export type QueryGetRentByIdArgs = {
   id: Scalars['String']['input'];
 };
 
@@ -146,6 +211,14 @@ export type Rent = {
   updatedAt: Scalars['DateTimeISO']['output'];
 };
 
+export type RentInput = {
+  bedId: Scalars['String']['input'];
+  dueDate: Scalars['DateTimeISO']['input'];
+  personId: Scalars['String']['input'];
+  roomId: Scalars['String']['input'];
+  status: Scalars['String']['input'];
+};
+
 export type Room = {
   __typename?: 'Room';
   beds: Array<Bed>;
@@ -158,9 +231,15 @@ export type Room = {
 };
 
 export type RoomInput = {
-  floor: Scalars['String']['input'];
+  floor?: InputMaybe<Scalars['String']['input']>;
   roomNumber: Scalars['String']['input'];
   roomStatus: Scalars['String']['input'];
+};
+
+export type UpdateBedInput = {
+  amount?: InputMaybe<Scalars['String']['input']>;
+  bedStatus: Scalars['String']['input'];
+  roomId?: InputMaybe<Scalars['String']['input']>;
 };
 
 export type UpdatePersonInput = {
@@ -170,6 +249,11 @@ export type UpdatePersonInput = {
   image?: InputMaybe<Scalars['String']['input']>;
   name: Scalars['String']['input'];
   phone?: InputMaybe<Scalars['String']['input']>;
+};
+
+export type UpdateRentInput = {
+  dueDate?: InputMaybe<Scalars['DateTimeISO']['input']>;
+  status?: InputMaybe<Scalars['String']['input']>;
 };
 
 export type UpdateRoomInput = {
@@ -198,6 +282,13 @@ export type UserInput = {
   username: Scalars['String']['input'];
 };
 
+export type CreateRoomMutationVariables = Exact<{
+  input: RoomInput;
+}>;
+
+
+export type CreateRoomMutation = { __typename?: 'Mutation', createRoom: { __typename?: 'Room', floor: string, id: string, roomNumber: string, roomStatus: string } };
+
 export type CreateUserMutationVariables = Exact<{
   input: UserInput;
 }>;
@@ -218,6 +309,42 @@ export type GetAllUsersQueryVariables = Exact<{ [key: string]: never; }>;
 export type GetAllUsersQuery = { __typename?: 'Query', getAllUsers: Array<{ __typename?: 'User', email: string, name: string, password: string, username: string, id: string }> };
 
 
+export const CreateRoomDocument = gql`
+    mutation CreateRoom($input: RoomInput!) {
+  createRoom(input: $input) {
+    floor
+    id
+    roomNumber
+    roomStatus
+  }
+}
+    `;
+export type CreateRoomMutationFn = Apollo.MutationFunction<CreateRoomMutation, CreateRoomMutationVariables>;
+
+/**
+ * __useCreateRoomMutation__
+ *
+ * To run a mutation, you first call `useCreateRoomMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useCreateRoomMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [createRoomMutation, { data, loading, error }] = useCreateRoomMutation({
+ *   variables: {
+ *      input: // value for 'input'
+ *   },
+ * });
+ */
+export function useCreateRoomMutation(baseOptions?: Apollo.MutationHookOptions<CreateRoomMutation, CreateRoomMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<CreateRoomMutation, CreateRoomMutationVariables>(CreateRoomDocument, options);
+      }
+export type CreateRoomMutationHookResult = ReturnType<typeof useCreateRoomMutation>;
+export type CreateRoomMutationResult = Apollo.MutationResult<CreateRoomMutation>;
+export type CreateRoomMutationOptions = Apollo.BaseMutationOptions<CreateRoomMutation, CreateRoomMutationVariables>;
 export const CreateUserDocument = gql`
     mutation CreateUser($input: UserInput!) {
   createUser(input: $input) {
